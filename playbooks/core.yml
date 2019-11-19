@@ -1,0 +1,10 @@
+---
+- name: Core Stuff
+  hosts: all
+  remote_user: benr
+  become: true
+  become_method: sudo
+
+
+  roles:
+    - common

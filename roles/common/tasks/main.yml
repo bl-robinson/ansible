@@ -1,0 +1,6 @@
+---
+- name: Common Apt
+  import_tasks: apt.yml
+
+- name: Common ssh
+  import_tasks: ssh.yml

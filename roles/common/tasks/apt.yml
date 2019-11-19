@@ -1,0 +1,21 @@
+---
+- name: Install Common Tools
+  apt:
+    name:
+      - vim
+      - htop
+      - dnsutils
+      - traceroute
+      - rsync
+      - curl
+      - lsof
+      - sl
+      - tree
+      - ack
+      - zip
+      - unzip
+      - strace
+    state: latest
+    update_cache: true
+  become: true
+
