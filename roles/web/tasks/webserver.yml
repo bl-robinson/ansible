@@ -12,6 +12,9 @@
 
   
 - name: Install Nginx Configs
+  vars:
+    custom_config: "{{ item.custom_config }}"
+    name: "{{ items.name }}"
   template: 
     src: 'site.conf'
     dest: '/etc/nginx/sites-available/{{ item.name }}.conf'
