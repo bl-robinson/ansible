@@ -3,7 +3,7 @@
   authorized_key:
     user: benr
     state: present
-    key: "{{ lookup ('file', item )}}"
+    key: "{{ lookup ('file', item ) }}"
   with_fileglob:
     - 'public_keys/*'
 
