@@ -1,0 +1,40 @@
+---
+- name: Install Unstable repo
+  copy:
+    src: unstable.list
+    dest: /etc/apt/sources.list.d/unstable.list
+
+- name: Install limit-unstable file
+  copy:
+    src: limit-unstable
+    dest: /etc/apt/preferences.d/limit-unstable
+
+
+- name: Install Required Packages
+  apt:
+    update_cache: yes
+    pkg:
+      - wireguard
+
+- name: Generate Private Key if not present
+  command: umask 077; wg genkey > /etc/wireguard/private.key
+  args:
+    creates: /etc/wireguard/private.key
+
+- name: Generate Public Key if not present
+  command: umask 077; wg pubkey < /etc/wireguard/private.key > /etc/wireguard/public.key
+  args:
+    creates: /etc/wireguard/public.key
+
+- name: Add wireguard config
+  copy: 
+    src: wg0.conf
+    dest: /etc/wireguard/wg0.conf
+
+
+- name: enable and start wireguard service
+  service:
+    name: wg-quick@wg0
+    state: started
+    enabled: yes
+

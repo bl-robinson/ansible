@@ -1,9 +1,8 @@
 ---
 - name: Install Required Packages
   apt:
-    name:
+    pkg:
       - nginx
-
 
 - name: Install Core Nginx Config
   copy:
