@@ -2,7 +2,7 @@
 - name: Install Unstable repo
   copy:
     src: unstable.list
-    dest: /etc/apt/sources.list.d/unstable.list
+    dest: /etc/apt/sources.list.d/unstable-wireguard.list
 
 - name: Install limit-unstable file
   copy:
