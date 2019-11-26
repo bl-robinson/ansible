@@ -34,7 +34,7 @@
 - name: Make wireguard config immutable
   file:
     path: /etc/wireguard/wg0.conf
-    attributes: i 
+    attributes: ie
 
 
 - name: enable and start wireguard service
