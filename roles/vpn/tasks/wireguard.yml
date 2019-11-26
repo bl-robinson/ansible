@@ -31,12 +31,6 @@
     src: wg0.conf
     dest: /etc/wireguard/wg0.conf
 
-- name: Make wireguard config immutable
-  file:
-    path: /etc/wireguard/wg0.conf
-    attributes: ie
-
-
 - name: enable and start wireguard service
   service:
     name: wg-quick@wg0
