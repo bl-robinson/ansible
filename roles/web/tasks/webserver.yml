@@ -3,6 +3,7 @@
   apt:
     pkg:
       - nginx
+      - certbot
 
 - name: Install Core Nginx Config
   copy:
@@ -13,6 +14,7 @@
 - name: Install Nginx Configs
   vars:
     custom_config: "{{ item.custom_config }}"
+    cert_name: "{{ item.cert_name }}"
     name: "{{ items.name }}"
   template: 
     src: 'site.conf'
@@ -21,6 +23,7 @@
   with_items:
     - { 
         name: rivan.home.blrobinson.uk,
+        cert_name: home_default,
         custom_config:
           '
           proxy_set_header   Host             $host;
@@ -44,6 +47,7 @@
         }
     - {
         name: winterfell.home.blrobinson.uk,
+        cert_name: home_default,
         custom_config: 
           '
           proxy_set_header   Host             $host;
@@ -56,6 +60,7 @@
     }
     - { 
       name: wedding.blrobinson.uk,
+      cert_name: wedding.blrobinson.uk,
       custom_config: 
         '
         location / {
