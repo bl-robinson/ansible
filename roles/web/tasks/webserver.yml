@@ -14,7 +14,7 @@
   cron:
     name: renew certs
     hour: "9,13"
-    minute: 0
+    minute: '0'
     job: "certbot renew"
   
 - name: Install Nginx Configs
