@@ -20,6 +20,7 @@
     src: 'site.conf'
     dest: '/etc/nginx/sites-available/{{ item.name }}.conf'
     mode: 0644
+  notify: reload nginx
   with_items:
     - { 
         name: rivan.home.blrobinson.uk,
