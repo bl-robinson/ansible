@@ -7,3 +7,6 @@
 
 - name: Ipv6
   import_tasks: ipv6.yml
+
+- name: cron
+  import_tasks: cron.yml

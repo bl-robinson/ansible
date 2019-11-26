@@ -10,6 +10,12 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
 
+- name: Renew certificates
+  cron:
+    name: renew certs
+    hour: "9,13"
+    minute: 0
+    job: "certbot renew"
   
 - name: Install Nginx Configs
   vars:

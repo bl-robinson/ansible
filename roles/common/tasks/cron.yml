@@ -1,0 +1,14 @@
+---
+- name: Set Mailto root
+  cron:
+    name: MAILTO
+    env: yes
+    job: benr@blrobinson.uk
+    user: root
+
+- name: Set Mailto benr
+  cron:
+    name: MAILTO
+    env: yes
+    job: benr@blrobinson.uk
+    user: benr
