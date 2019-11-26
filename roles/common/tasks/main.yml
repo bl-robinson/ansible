@@ -4,3 +4,6 @@
 
 - name: Common ssh
   import_tasks: ssh.yml
+
+- name: Ipv6
+  import_tasks: ipv6.yml
