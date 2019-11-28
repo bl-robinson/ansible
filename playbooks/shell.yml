@@ -1,0 +1,10 @@
+---
+- name: Shell Setup
+  hosts: shell
+  remote_user: benr
+  become: true
+  become_method: sudo
+
+
+  roles:
+    - shell
