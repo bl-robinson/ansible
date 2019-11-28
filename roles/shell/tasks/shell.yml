@@ -9,7 +9,7 @@
     path: /home/benr/.weechat
     state: directory
     mode: '0755'
-    user: benr
+    owner: benr
     group: benr
 
 - name: Install weechat irc config
