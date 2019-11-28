@@ -3,3 +3,13 @@
   apt:
     pkg:
       - weechat
+
+- name: Install weechat irc config
+  copy:
+    src: irc.conf
+    dest: /home/benr/.weechat/irc.conf
+
+- name: Install weechat sec config
+  copy:
+    src: sec.conf
+    dest: /home/benr/.weechat/sec.conf
