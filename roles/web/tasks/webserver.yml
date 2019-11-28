@@ -15,7 +15,7 @@
     name: renew certs
     hour: "9,13"
     minute: "0"
-    job: "certbot renew"
+    job: "certbot renew --deploy-hook 'systemctl reload nginx'"
   
 - name: Install Nginx Configs
   vars:
