@@ -4,6 +4,12 @@
     pkg:
       - weechat
 
+- name: Create .weechat directory
+  file:
+    path: /home/benr/.weechat
+    state: directory
+    mode: '0755'
+
 - name: Install weechat irc config
   copy:
     src: irc.conf
