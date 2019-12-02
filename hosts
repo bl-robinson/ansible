@@ -15,6 +15,7 @@ vpn
 shell
 ansible
 rivan
+data
 
 # Ex 2: A collection of hosts belonging to the 'webservers' group
 
@@ -23,7 +24,7 @@ web
 vpn
 shell
 ansible
-
+data
 
 # If you have multiple hosts following a pattern you can specify
 # them like this:
