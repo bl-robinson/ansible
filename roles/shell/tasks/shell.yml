@@ -3,14 +3,17 @@
   apt:
     pkg:
       - weechat
+      - weechat-python
+      - python-websocket
 
-- name: Create .weechat directory
+- name: Create .weechat directories
   file:
-    path: /home/benr/.weechat
+    path: /home/benr/.weechat/python/autoload
     state: directory
     mode: '0755'
     owner: benr
     group: benr
+    recurse: yes
 
 - name: Install weechat irc config
   copy:
@@ -21,3 +24,30 @@
   copy:
     src: sec.conf
     dest: /home/benr/.weechat/sec.conf
+
+- name: Install weechat python slack
+  get_url:
+    url: https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
+    dest: /home/benr/.weechat/python/wee_slack.py
+    checksum: md5:d8ab9f59f33bf04e8a93043363132ed1
+
+- name: Create weechat slack symlink
+  file:
+    src: /home/benr/.weechat/python/wee_slack.py
+    dest: /home/benr/.weechat/python/autoload/wee_slack.py
+    owner: benr
+    group: benr
+    state: link
+
+- name: Install weechat autosort
+  get_url: https://raw.githubusercontent.com/de-vri-es/weechat-autosort/master/autosort.py
+  dest: ·/home/benr/.weechat/python/autosort.py
+  checksum: md5:67a0ca99b30051482e8b78fc26b080b5
+
+- name: Create autosort symlink
+  file:
+    src: /home/benr/.weechat/python/autosort.py
+    dest: /home/benr/.weechat/python/autoload/autosort.py
+    owner: benr
+    group: benr
+    state: link
