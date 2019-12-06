@@ -6,15 +6,6 @@
       - weechat-python
       - python-websocket
 
-- name: Create .weechat directories
-  file:
-    path: /home/benr/.weechat/python/autoload
-    state: directory
-    mode: '0755'
-    owner: benr
-    group: benr
-    recurse: yes
-
 - name: Install weechat config
   copy:
     src: weechat
