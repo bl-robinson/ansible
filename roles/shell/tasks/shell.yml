@@ -37,7 +37,7 @@
 - name: Install weechat autosort
   get_url: 
     url: https://raw.githubusercontent.com/de-vri-es/weechat-autosort/master/autosort.py
-    dest: ·/home/benr/.weechat/python/autosort.py
+    dest: /home/benr/.weechat/python/autosort.py
     checksum: md5:67a0ca99b30051482e8b78fc26b080b5
 
 - name: Create autosort symlink
