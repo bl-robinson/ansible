@@ -8,9 +8,9 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug {{ hostvars['main_interface'] }}
-iface {{ hostvars['main_interface'] }} inet static
-	address {{ hostvars['ip_addr'] }}/24
+allow-hotplug {{ hostvars['all'].main_interface }}
+iface {{ hostvars['all'].main_interface }} inet static
+	address {{ hostvars['all'].ip_addr] }}/24
     netmask 255.255.255.0
 	gateway 10.0.0.1
     network 10.0.0.0
@@ -22,7 +22,7 @@ iface {{ hostvars['main_interface'] }} inet static
 {% if hostvars.get('internal_interface') %}
 allow-hotplug enp4s0
 iface enp4s0 inet static
-	address {{ hostvars['internal_ip'] }}/24
+	address {{ hostvars['all].internal_ip }}/24
 	gateway 10.0.2.1
-    
+
 {% endif %}
