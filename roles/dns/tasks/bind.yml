@@ -8,16 +8,13 @@
       copy:
         src: bind/db.home.blrobinson.uk
         dest: /etc/bind/db.home.blrobinson.uk
-        notify: restart bind9
     
     - name: Install reverse zone home.blrobinson.uk
       copy:
         src: bind/db.rev.0.0.10.in-addr.arpa
         dest: /etc/bind/db.rev.0.0.10.in-addr.arpa
-        notify: restart bind9
         
     - name: Install named.conf.local
       copy:
         src: bind/named.conf.local
         dest: /etc/bind/named.conf.local
-        notify: restart bind9
