@@ -1,13 +1,32 @@
 all:
   hosts:
     rivan:
+      ip_addr: 10.0.0.3
   children:
     vms:
       hosts:
         web:
+          main_interface: ens1
+          ip_addr: 10.0.0.5
         vpn:
+          main_interface: enp1s0 
+          ip_addr: 10.0.0.8
+          internal_interface: enp7s0
+          internal_ip: 10.0.2.1
         shell:
+          main_interface: enp1s0
+          ip_addr: 10.0.0.6
+          internal_interface: enp4s0
+          internal_ip: 10.0.2.2
         ansible:
+          main_interface: ens1
+          ip_addr: 10.0.0.7
         data:
+          main_interface: ens1
+          ip_addr: 10.0.0.11
         mail:
+          main_interface: ens3
+          ip_addr: 10.0.0.10
         dns:
+          main_interface: ens3
+          ip_addr: 10.0.0.12

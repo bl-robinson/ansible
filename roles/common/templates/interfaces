@@ -1,0 +1,28 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug {{ hostvars['main_interface'] }}
+iface {{ hostvars['main_interface'] }} inet static
+	address {{ hostvars['ip_addr'] }}/24
+    netmask 255.255.255.0
+	gateway 10.0.0.1
+    network 10.0.0.0
+    broadcast 10.0.0.255
+	dns-nameservers 10.0.0.12
+	dns-search home.blrobinson.uk
+	dns-domain home.blrobinson.uk
+
+{% if hostvars.get('internal_interface') %}
+allow-hotplug enp4s0
+iface enp4s0 inet static
+	address {{ hostvars['internal_ip'] }}/24
+	gateway 10.0.2.1
+    
+{% endif %}
