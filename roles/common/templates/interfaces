@@ -22,7 +22,7 @@ iface {{ hostvars['all'].main_interface }} inet static
 {% if hostvars.get('internal_interface') %}
 allow-hotplug enp4s0
 iface enp4s0 inet static
-	address {{ hostvars['all].internal_ip }}/24
+	address {{ hostvars['all'].internal_ip }}/24
 	gateway 10.0.2.1
 
 {% endif %}
