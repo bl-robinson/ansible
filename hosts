@@ -17,6 +17,7 @@ ansible
 rivan
 data
 mail
+dns
 
 # Ex 2: A collection of hosts belonging to the 'webservers' group
 
@@ -27,6 +28,7 @@ shell
 ansible
 data
 mail
+dns
 
 # If you have multiple hosts following a pattern you can specify
 # them like this:
