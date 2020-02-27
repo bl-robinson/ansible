@@ -8,9 +8,9 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug {{ hostvars[host]["main_interface"] }}
-iface {{ hostvars[host]["main_interface"] }} inet static
-	address {{ hostvars[host]["ip_addr"] }}/24
+allow-hotplug {{ main_interface }}
+iface {{ main_interface }} inet static
+	address {{ ip_addr }}/24
     netmask 255.255.255.0
 	gateway 10.0.0.1
     network 10.0.0.0
@@ -19,10 +19,10 @@ iface {{ hostvars[host]["main_interface"] }} inet static
 	dns-search home.blrobinson.uk
 	dns-domain home.blrobinson.uk
 
-{% if hostvars[host]["internal_interface"] %}
-allow-hotplug enp4s0
-iface enp4s0 inet static
-	address {{ hostvars[host]["internal_ip"] }}/24
+{% if internal_interface %}
+allow-hotplug {{ internal_interface }}
+iface {{ internal_interface }} inet static
+	address {{ internal_ip }}/24
 	gateway 10.0.2.1
 
 {% endif %}

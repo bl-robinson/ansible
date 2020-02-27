@@ -1,3 +1,7 @@
 ---
     - name: Set interfaces file
-      template: src=interfaces dest=/etc/network/interfaces
+      template: src=interfaces dest=/etc/network/interface
+      ip_addr: {{ ip_addr }}
+      main_interface: {{ main_interface }}
+      internal_interface: {{ internal_interface }}
+      internal_ip: {{ internal_ip }}
