@@ -1,7 +1,9 @@
 ---
     - name: Set interfaces file
-      template: src=interfaces dest=/etc/network/interface
-      ip_addr: {{ ip_addr }}
-      main_interface: {{ main_interface }}
-      internal_interface: {{ internal_interface }}
-      internal_ip: {{ internal_ip }}
+      template: 
+        src: interfaces
+        dest: /etc/network/interface
+        ip_addr: "{{ hostvars[inventory_hostname].ip_addr }}"
+        main_interface: "{{ hostvars[inventory_hostname].main_interface }}"
+        internal_interface: "{{ hostvars[inventory_hostname].internal_interface }}"
+        internal_ip: "{{ hostvars[inventory_hostname].internal_ip }}"
