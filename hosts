@@ -24,20 +24,12 @@ all:
         ansible:
           main_interface: ens1
           ip_addr: 10.0.0.7
-          internal_interface: None
-          internal_ip: False
         data:
           main_interface: ens1
           ip_addr: 10.0.0.11
-          internal_interface: None
-          internal_ip: False
         mail:
           main_interface: ens3
           ip_addr: 10.0.0.10
-          internal_interface: None
-          internal_ip: False
         dns:
           main_interface: ens3
           ip_addr: 10.0.0.12
-          internal_interface: None
-          internal_ip: False
