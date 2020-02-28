@@ -1,0 +1,17 @@
+
+---
+    - name: Install Dovecot
+      apt:
+        name:
+          - dovecot
+          - dovecot-imapd
+          - dovecot-core
+        state: latest
+        update_cache: True
+        cache_valid_time: 86400
+      become: true
+
+    - name: Install dovecot.conf
+      copy:
+        src: dovecot/dovecot.conf
+        dest: /etc/dovecot/dovecot.conf
