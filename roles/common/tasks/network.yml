@@ -2,4 +2,4 @@
     - name: Set interfaces file
       template: 
         src: interfaces
-        dest: /etc/network/interface
+        dest: /etc/network/interfaces
