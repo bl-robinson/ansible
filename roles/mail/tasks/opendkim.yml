@@ -1,0 +1,22 @@
+---
+    - name: Install opendkim
+      apt:
+        name:
+            - opendkim
+            - opendkim-tools
+        state: latest
+        update_cache: True
+        cache_valid_time: 86400
+      become: true
+
+    - name: Start and enable opendkim
+      service:
+        name: opendkim
+        state: started
+        enabled: True
+
+    - name: Add opendkim user to postfix group
+      user:
+        name: opendkim
+        append: yes
+        groups: postfix

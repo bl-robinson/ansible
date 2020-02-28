@@ -1,0 +1,31 @@
+---
+    - name: Install Postfix
+      apt:
+        name:
+          - postfix
+          - postfix-policyd-spf-python
+        state: latest
+        update_cache: True
+        cache_valid_time: 86400
+      become: true
+
+    - name: Install main.cf
+      copy:
+        src: postfix/main.cf
+        dest: /etc/postfix/main.cf
+
+    - name: Install master.cf
+      copy:
+        src: postfix/master.cf
+        dest: /etc/postfix/master.cf
+
+    - name: virtual
+      copy:
+        src: postfix/virtual
+        dest: /etc/postfix/virtual
+
+    - name: Start and enable postfix
+      service:
+        name: postfix
+        state: started
+        enabled: True
