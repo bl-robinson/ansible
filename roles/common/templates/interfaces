@@ -23,6 +23,5 @@ iface {{ main_interface }} inet static
 allow-hotplug {{ internal_interface }}
 iface {{ internal_interface }} inet static
     address {{ internal_ip }}/24
-    gateway 10.0.2.1
 
 {% endif %}
