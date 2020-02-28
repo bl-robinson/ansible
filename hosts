@@ -12,12 +12,12 @@ all:
           main_interface: ens1
           ip_addr: 10.0.0.5
           internal_interface: enp5s0
-          internal_ip: 10.0.2.4
+          internal_ip: 10.0.2.8
         vpn:
           main_interface: enp1s0 
           ip_addr: 10.0.0.8
           internal_interface: enp7s0
-          internal_ip: 10.0.2.1
+          internal_ip: 10.0.2.3
         shell:
           main_interface: enp1s0
           ip_addr: 10.0.0.6
@@ -27,7 +27,7 @@ all:
           main_interface: ens1
           ip_addr: 10.0.0.7
           internal_interface: enp5s0
-          internal_ip: 10.0.2.3
+          internal_ip: 10.0.2.4
         data:
           main_interface: ens1
           ip_addr: 10.0.0.11
