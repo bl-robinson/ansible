@@ -18,6 +18,7 @@
       - screen
       - mtr
     state: latest
-    update_cache: true
+    update_cache: True
+    cache_valid_time: 86400
   become: true
 
