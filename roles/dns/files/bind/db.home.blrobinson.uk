@@ -12,6 +12,7 @@ home.blrobinson.uk.	IN	SOA	rivan.home.blrobinson.uk. root.rivan.home.blrobinson.
 home.blrobinson.uk.	IN	NS	rivan.home.blrobinson.uk.
 home.blrobinson.uk.	IN	MX	10 rivan.home.blrobinson.uk.
 
+@		IN  A 	10.0.0.1
 data	IN	A	10.0.0.11
 mail	IN	A	10.0.0.10
 hv-ipmi	IN	A	10.0.0.9
