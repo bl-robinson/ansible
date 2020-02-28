@@ -3,8 +3,3 @@
       template: 
         src: interfaces
         dest: /etc/network/interface
-      vars:
-        ip_addr: "{{ hostvars[inventory_hostname].ip_addr }}"
-        main_interface: "{{ hostvars[inventory_hostname].main_interface }}"
-        internal_interface: "{{ hostvars[inventory_hostname].internal_interface }}"
-        internal_ip: "{{ hostvars[inventory_hostname].internal_ip }}"
