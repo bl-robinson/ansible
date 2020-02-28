@@ -3,7 +3,6 @@
     - name: Install Dovecot
       apt:
         name:
-          - dovecot
           - dovecot-imapd
           - dovecot-core
         state: latest
