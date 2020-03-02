@@ -3,3 +3,8 @@
       template: 
         src: interfaces
         dest: /etc/network/interfaces
+
+    - name: Set resolv.conf
+      copy:
+        src: network/resolv.conf
+        dest: /etc/resolv.conf
