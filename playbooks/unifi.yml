@@ -1,0 +1,11 @@
+---
+    - name: Uunifi Controller Setup
+      hosts: unifi
+      remote_user: benr
+      become: true
+      become_method: sudo
+    
+    
+      roles:
+        - unifi
+    

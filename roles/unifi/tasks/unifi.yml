@@ -1,0 +1,17 @@
+--- 
+    - name: Unifi Apt Repo
+      apt_repository: 
+        repo: deb https://www.ui.com/downloads/unifi/debian stable ubiquiti
+        state: present
+    
+    - name: Unifi Apt Key
+      apt_key: keyserver.ubuntu.com
+      id: 06E85760C0A52C50
+
+    - name: Install Required Packages
+      apt:
+        pkg:
+          - ca-certificates
+          - apt-transport-https
+          - unifi
+  
