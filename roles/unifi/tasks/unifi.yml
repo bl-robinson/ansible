@@ -4,6 +4,7 @@
         pkg:
           - ca-certificates
           - apt-transport-https
+          - multiarch-support
         state: latest
         update_cache: True
         cache_valid_time: 86400
