@@ -41,10 +41,16 @@
         state: present
 
     - name: Old Java for Compat Repo
-      apr_repository:
+      apt_repository:
         repo: deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main
         state: present
   
+    - name: Unifi JAVA_HOME
+      copy:
+        dest: /etc/default/unifi
+        content: |
+          JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
+
     - name: Install Unifi
       apt:
         pkg:
