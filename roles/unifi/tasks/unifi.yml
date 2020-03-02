@@ -1,4 +1,13 @@
 --- 
+    - name: Install Base Packages
+      apt:
+        pkg:
+          - ca-certificates
+          - apt-transport-https
+        state: latest
+        update_cache: True
+        cache_valid_time: 86400
+
     - name: Unifi Apt Repo
       apt_repository: 
         repo: deb https://www.ui.com/downloads/unifi/debian stable ubiquiti
@@ -9,13 +18,10 @@
         keyserver: keyserver.ubuntu.com
         id: 06E85760C0A52C50
 
-    - name: Install Required Packages
+    - name: Install Unifi
       apt:
         pkg:
-          - ca-certificates
-          - apt-transport-https
           - unifi
         state: latest
-        update_cache: True
-        cache_valid_time: 86400
+
   
