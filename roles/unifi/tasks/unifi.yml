@@ -5,8 +5,9 @@
         state: present
     
     - name: Unifi Apt Key
-      apt_key: keyserver.ubuntu.com
-      id: 06E85760C0A52C50
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 06E85760C0A52C50
 
     - name: Install Required Packages
       apt:

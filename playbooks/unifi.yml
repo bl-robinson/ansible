@@ -1,5 +1,5 @@
 ---
-    - name: Uunifi Controller Setup
+    - name: Unifi Controller Setup
       hosts: unifi
       remote_user: benr
       become: true
