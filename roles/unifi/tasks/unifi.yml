@@ -35,9 +35,20 @@
     - name: Install old libssl req
       command: dpkg -i libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
+    - name: Old Java for Compat KEY
+      apt_key:
+        url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+        state: present
+
+    - name: Old Java for Compat Repo
+      apr_repository:
+        repo: deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main
+        state: present
+  
     - name: Install Unifi
       apt:
         pkg:
+          - adoptopenjdk-8-hotspot
           - unifi
         state: latest
 
