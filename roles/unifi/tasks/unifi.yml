@@ -21,6 +21,7 @@
     - name: Mongodb Apt Key
       apt_key:
         url: https://www.mongodb.org/static/pgp/server-3.0.asc
+        state: present
 
     - name: Mongodb Apt Repo
       apt_repository: 
