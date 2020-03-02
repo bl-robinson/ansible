@@ -1,4 +1,7 @@
 ---
+- name: network
+  import_tasks: network.yml
+
 - name: Common Apt
   import_tasks: apt.yml
 
@@ -10,6 +13,3 @@
 
 - name: cron
   import_tasks: cron.yml
-
-- name: network
-  import_tasks: network.yml
