@@ -12,7 +12,7 @@ home.blrobinson.uk.	IN	SOA	rivan.home.blrobinson.uk. root.rivan.home.blrobinson.
 home.blrobinson.uk.	IN	NS	rivan.home.blrobinson.uk.
 home.blrobinson.uk.	IN	MX	10 rivan.home.blrobinson.uk.
 
-@			IN  A 	84.68.119.12
+unifi		IN	A	10.0.0.13
 dns			IN	A	10.0.0.12
 data		IN	A	10.0.0.11
 mail		IN	A	10.0.0.10
@@ -21,7 +21,7 @@ vpn			IN	A	10.0.0.8
 ansible		IN	A	10.0.0.7
 shell		IN	A	10.0.0.6
 web			IN	A	10.0.0.5
-unifi		IN	A	10.0.0.5
+unifi-dash	IN 	A	10.0.0.5
 hv			IN	A	10.0.0.4
 rivan		IN	A	10.0.0.3
 winterfell 	IN	A 	10.0.0.2
