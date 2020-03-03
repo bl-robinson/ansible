@@ -17,3 +17,5 @@
 9	 IN PTR	hv-ipmi.home.blrobinson.uk.
 10	 IN PTR mail.home.blrobinson.uk.
 11	 IN PTR data.home.blrobinson.uk.
+12   IN PTR dns.home.blrobinson.uk.
+13   IN PTR unifi.home.blrobinson.uk.
