@@ -6,4 +6,4 @@
 
 - name: Intall LE monut
   import_tasks: letsencrypt.yml
-  when: ansible_facts['letsencrypt'] == True
+  when: letsencrypt
