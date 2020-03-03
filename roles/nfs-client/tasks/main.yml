@@ -3,3 +3,7 @@
   apt:
     pkg:
       - nfs-common
+{% if letsencrypt %}
+- name: Intall LE monut
+  import_tasks: letsencrypt.yml
+{% endif %}
