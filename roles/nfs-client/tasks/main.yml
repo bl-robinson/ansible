@@ -6,4 +6,4 @@
 
 - name: Intall LE monut
   import_tasks: letsencrypt.yml
-  when: letsencrypt
+  when: letsencrypt is defined and letsencrypt == True
