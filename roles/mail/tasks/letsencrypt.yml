@@ -14,7 +14,7 @@
 
 - name: Mount and bind a volume
   mount:
-    path: data.home.blrobinson.uk:/mnt/letsencrypt
-    src: /mnt/letsencrypt
+    path: /mnt/letsencrypt
+    src: data.home.blrobinson.uk:/mnt/letsencrypt
     state: mounted
     fstype: nfs4
