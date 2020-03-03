@@ -1,0 +1,5 @@
+---
+- name: Install Required Packages
+  apt:
+    pkg:
+      - nfs-common

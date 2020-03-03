@@ -1,11 +1,11 @@
 ---
-    - name: mail
-      hosts: mail
+    - name: nfs-server
+      hosts: data
       remote_user: benr
       become: true
       become_method: sudo
     
+    
       roles:
-        - nfs-client
-        - mail
-  
+        - nfs-server
+    

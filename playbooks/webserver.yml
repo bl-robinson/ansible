@@ -7,4 +7,5 @@
 
 
   roles:
+    - nfs-client
     - web
