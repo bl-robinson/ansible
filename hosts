@@ -13,6 +13,7 @@ all:
           ip_addr: 10.0.0.5
           internal_interface: enp5s0
           internal_ip: 10.0.2.8
+          letsencrypt: True
         vpn:
           main_interface: enp1s0 
           ip_addr: 10.0.0.8
@@ -38,6 +39,7 @@ all:
           ip_addr: 10.0.0.10
           internal_interface: enp8s0
           internal_ip: 10.0.2.6
+          letsencrypt: True
         dns:
           main_interface: ens3
           ip_addr: 10.0.0.12
