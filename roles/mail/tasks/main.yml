@@ -1,18 +1,21 @@
 ---
-    - name: Install Common Utils
-      apt:
-        name:
-          - mailutils
-        state: latest
-        update_cache: True
-        cache_valid_time: 86400
-      become: true
+- name: Letsencrypt Mount setup
+  import_tasks: letsencrypt.yml
 
-    - name: Postfix
-      import_tasks: postfix.yml
+- name: Install Common Utils
+  apt:
+    name:
+      - mailutils
+    state: latest
+    update_cache: True
+    cache_valid_time: 86400
+  become: true
 
-    - name: opendkim
-      import_tasks: opendkim.yml
+- name: Postfix
+  import_tasks: postfix.yml
 
-    - name: Dovecot
-      import_tasks: dovecot.yml
+- name: opendkim
+  import_tasks: opendkim.yml
+
+- name: Dovecot
+  import_tasks: dovecot.yml

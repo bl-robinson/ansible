@@ -1,0 +1,20 @@
+- name: Create Mountpoint
+  file:
+    path: /mnt/letsencrypt
+    state: directory
+    mode: '0755'
+
+- name: Create Symlink
+  file:
+    src: /mnt/letsencrypt
+    dest: /etc/letsencrypt
+    owner: root
+    group: root
+    state: link
+
+- name: Mount and bind a volume
+  mount:
+    path: data.home.blrobinson.uk:/mnt/letsencrypt
+    src: /mnt/letsencrypt
+    state: mounted
+    fstype: nfs4
