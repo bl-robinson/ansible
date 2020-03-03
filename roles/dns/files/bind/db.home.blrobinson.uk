@@ -2,14 +2,14 @@
 ; BIND data file for local loopback interface
 ;
 $TTL	604800
-home.blrobinson.uk.	IN	SOA	rivan.home.blrobinson.uk. root.rivan.home.blrobinson.uk. (
+home.blrobinson.uk.	IN	SOA	dns.home.blrobinson.uk. root.dns.home.blrobinson.uk. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
 ;
-home.blrobinson.uk.	IN	NS	rivan.home.blrobinson.uk.
+home.blrobinson.uk.	IN	NS	dns.home.blrobinson.uk.
 home.blrobinson.uk.	IN	MX	10 rivan.home.blrobinson.uk.
 
 unifi		IN	A	10.0.0.13
