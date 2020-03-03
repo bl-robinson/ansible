@@ -1,10 +1,10 @@
-- name: Create Mountpoint
+- name: Create LE Mountpoint
   file:
     path: /mnt/letsencrypt
     state: directory
     mode: '0755'
 
-- name: Create Symlink
+- name: Create LE Symlink
   file:
     src: /mnt/letsencrypt
     dest: /etc/letsencrypt
