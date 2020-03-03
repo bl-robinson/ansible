@@ -26,3 +26,5 @@ hv			IN	A	10.0.0.4
 rivan		IN	A	10.0.0.3
 winterfell 	IN	A 	10.0.0.2
 fw			IN	A	10.0.0.1
+
+external.home.blrobinson.uk. IN CNAME benrobinson1993.ddns.net.
