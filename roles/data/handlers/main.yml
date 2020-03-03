@@ -1,0 +1,6 @@
+---
+- name: update exports
+  command: exportfs -a
+
+- name: update nfs-server
+  service: name=nfs-server state=reloaded enabled=yes

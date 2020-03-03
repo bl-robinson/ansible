@@ -1,0 +1,23 @@
+---
+- name: Install Required Packages
+  apt:
+    pkg:
+      - nfs-kernel-server
+
+- name: exports file
+  copy:
+    src: exports
+    dest: /etc/exports
+  notify: update exports
+
+- name: nfs-common file
+  copy:
+    src: nfs-common
+    dest: /etc/default/nfs-common
+  notify: update nfs-server
+
+- name: nfs-kernel-server file
+  copy:
+    src: nfs-kernel-server
+    dest: /etc/default/nfs-kernel-server
+  notify: update nfs-server
