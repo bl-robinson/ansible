@@ -16,19 +16,19 @@
     hour: "9,13"
     minute: "0"
     job: "certbot renew --deploy-hook 'systemctl reload nginx'"
-  
+
 - name: Install Nginx Configs
   vars:
     custom_config: "{{ item.custom_config }}"
     cert_name: "{{ item.cert_name }}"
     name: "{{ items.name }}"
-  template: 
+  template:
     src: 'site.conf'
     dest: '/etc/nginx/sites-available/{{ item.name }}.conf'
     mode: 0644
   notify: reload nginx
   with_items:
-    - { 
+    - {
         name: unifi.blrobinson.uk,
         cert_name: home_default,
         custom_config:
@@ -37,9 +37,9 @@
           proxy_set_header   X-Real-IP        $remote_addr;
           proxy_set_header Referer "";
           proxy_read_timeout 300;
-          proxy_connect_timeout 300;	
+          proxy_connect_timeout 300;
 
-          location /wss {
+          location ~* ^/wss {
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "Upgrade";
             proxy_ssl_verify off;
@@ -54,10 +54,10 @@
           }
           '
         }
-    - { 
+    - {
       name: wedding.blrobinson.uk,
       cert_name: home_default,
-      custom_config: 
+      custom_config:
         '
         location / {
           index index.html;
