@@ -44,7 +44,7 @@
             proxy_set_header Connection "Upgrade";
             proxy_ssl_verify off;
             resolver 10.0.0.12;
-            proxy_pass https://unifi.home.blrobinson.uk:8443$request_uri;
+            proxy_pass wss://unifi.home.blrobinson.uk:8443$request_uri;
           }
 
           location / {
