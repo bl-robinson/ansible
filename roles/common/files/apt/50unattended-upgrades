@@ -7,4 +7,4 @@ Unattended-Upgrade::Origins-Pattern {
 Unattended-Upgrade::Package-Blacklist {
 };
 
-Unattended-Upgrade::Mail "admin@blrobinson.uk";
+Unattended-Upgrade::Mail "admin@home.blrobinson.uk";
