@@ -10,7 +10,7 @@ home.blrobinson.uk.	IN	SOA	dns.home.blrobinson.uk. root.dns.home.blrobinson.uk. 
 			 604800 )	; Negative Cache TTL
 ;
 home.blrobinson.uk.	IN	NS	dns.home.blrobinson.uk.
-home.blrobinson.uk.	IN	MX	10 rivan.home.blrobinson.uk.
+home.blrobinson.uk.	IN	MX	10 mail.home.blrobinson.uk.
 
 unifi		IN	A	10.0.0.13
 dns			IN	A	10.0.0.12
