@@ -24,6 +24,11 @@
         src: postfix/virtual
         dest: /etc/postfix/virtual
 
+    - name: Postmap
+      command:
+        cmd: postmap /etc/postfix/virtual
+        creates: /etc/postfix/virtual.db
+
     - name: Start and enable postfix
       service:
         name: postfix
