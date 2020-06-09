@@ -28,6 +28,15 @@
       command:
         cmd: postmap /etc/postfix/virtual
 
+    - name: Aliases file
+      copy:
+        src: postfix/aliases
+        dest: /etc/aliases
+
+    - name: Aliases
+      command:
+        cmd: newaliases
+
     - name: Start and enable postfix
       service:
         name: postfix
