@@ -19,7 +19,7 @@
       - mtr
       - unattended-upgrades
       - apt-listchanges
-      - mailx
+      - mailutils
     state: latest
     update_cache: True
     cache_valid_time: 86400
