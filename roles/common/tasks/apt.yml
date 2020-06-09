@@ -20,6 +20,7 @@
       - unattended-upgrades
       - apt-listchanges
       - mailutils
+      - sendmail
     state: latest
     update_cache: True
     cache_valid_time: 86400
