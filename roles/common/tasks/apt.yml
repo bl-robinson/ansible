@@ -19,8 +19,18 @@
       - mtr
       - unattended-upgrades
       - apt-listchanges
+      - mailx
     state: latest
     update_cache: True
     cache_valid_time: 86400
   become: true
 
+- name: Copy Apt auto-update
+  copy:
+    src: apt/20auto-upgrades
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+
+- name: Copy Apt unattended
+  copy:
+    src: apt/50unattended-upgrades
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
