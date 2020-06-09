@@ -1,10 +1,4 @@
 all:
-  hosts:
-    rivan:
-      main_interface: eth0
-      ip_addr: 10.0.0.3
-      internal_interface: False
-      internal_ip: False
   children:
     vms:
       hosts:
@@ -15,7 +9,7 @@ all:
           internal_ip: 10.0.2.8
           letsencrypt: True
         vpn:
-          main_interface: enp1s0 
+          main_interface: enp1s0
           ip_addr: 10.0.0.8
           internal_interface: enp7s0
           internal_ip: 10.0.2.3
