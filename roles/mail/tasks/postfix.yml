@@ -23,19 +23,23 @@
       copy:
         src: postfix/virtual
         dest: /etc/postfix/virtual
+      register: virtual
 
     - name: Postmap
       command:
         cmd: postmap /etc/postfix/virtual
+      when: virtual.changed
 
     - name: Aliases file
       copy:
         src: postfix/aliases
         dest: /etc/aliases
+      register: aliases
 
     - name: Aliases
       command:
         cmd: newaliases
+      when: aliases.changed
 
     - name: Start and enable postfix
       service:
