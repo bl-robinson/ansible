@@ -14,7 +14,9 @@
   apt:
     update_cache: yes
     pkg:
-      - wireguard
+      - wireguard-dkms
+      - wireguard-tools
+      - linux-headers-$(uname -r)
 
 - name: Generate Private Key if not present
   command: umask 077; wg genkey > /etc/wireguard/private.key
@@ -27,7 +29,7 @@
     creates: /etc/wireguard/public.key
 
 - name: Add wireguard config
-  copy: 
+  copy:
     src: wg0.conf
     dest: /etc/wireguard/wg0.conf
 
