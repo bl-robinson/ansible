@@ -9,6 +9,11 @@
         cache_valid_time: 86400
       become: true
 
+    - name: opendkim config file
+      copy:
+        src: opendkim/opendkim.conf
+        dest: /etc/opendkim.conf
+
     - name: Start and enable opendkim
       service:
         name: opendkim
