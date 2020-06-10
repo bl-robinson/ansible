@@ -55,7 +55,7 @@ smtpd_recipient_restrictions =
 
 milter_default_action = accept
 milter_protocol = 6
-smtpd_milters = local:/opendkim/opendkim.sock
+smtpd_milters = local:/var/spool/posrtfix/opendkim/opendkim.sock
 non_smtpd_milters = $smtpd_milters
 
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
