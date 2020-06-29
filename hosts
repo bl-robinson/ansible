@@ -1,5 +1,9 @@
 all:
   children:
+    hosts:
+      chick:
+        main_interface: eth0
+        ip_addr: 10.0.0.2
     vms:
       hosts:
         web:
