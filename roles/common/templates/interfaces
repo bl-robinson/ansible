@@ -19,7 +19,7 @@ iface {{ main_interface }} inet static
     dns-search home.blrobinson.uk
     dns-domain home.blrobinson.uk
 
-{% if internal_interface %}
+{% if internal_interface|default(False) %}
 allow-hotplug {{ internal_interface }}
 iface {{ internal_interface }} inet static
     address {{ internal_ip }}/24
