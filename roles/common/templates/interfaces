@@ -25,3 +25,7 @@ iface {{ internal_interface }} inet static
     address {{ internal_ip }}/24
 
 {% endif %}
+
+{% if custom_network_config }}
+{{ custom_network_config }}
+{% endif %}
