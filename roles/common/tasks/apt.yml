@@ -21,6 +21,7 @@
       - apt-listchanges
       - mailutils
       - sendmail
+      - ifenslave
     state: latest
     update_cache: True
     cache_valid_time: 86400

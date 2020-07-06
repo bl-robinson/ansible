@@ -4,18 +4,33 @@ all:
       main_interface: eth0
       ip_addr: 10.0.0.2
       custom_network_config: |
-        allow-hotplug wlan0
+        auto bond0
+        iface bond0 inet static
+            address 10.0.0.2/24
+            netmask 255.255.255.0
+            gateway 10.0.0.1
+            network 10.0.0.0
+            broadcast 10.0.0.255
+            dns-nameservers 10.0.0.12
+            dns-search home.blrobinson.uk
+            dns-domain home.blrobinson.uk
+            bond-mode active-backup
+            bond-miimon 100
+            bond-slaves none
+            bond-primary eth0
+
+        auto eth0
+        iface eth0 inet manual
+            bond-master bond0
+            bond-primary eth0
+            bond-mode active-backup
+
+        auto wlan0
         iface wlan0 inet manual
-          wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
-        iface acasa inet static
-          address 10.0.0.14/24
-          netmask 255.255.255.0
-          gateway 10.0.0.1
-          network 10.0.0.0
-          broadcast 10.0.0.255
-          dns-nameservers 10.0.0.12
-          dns-search home.blrobinson.uk
-          dns-domain home.blrobinson.uk
+            bond-master bond0
+            bond-primary eth0
+            bond-mode active-backup
+            wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
   children:
     vms:
       hosts:

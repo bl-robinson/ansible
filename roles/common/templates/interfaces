@@ -7,6 +7,8 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 
+{% if not custom_network_config|default(False) %}
+
 # The primary network interface
 allow-hotplug {{ main_interface }}
 iface {{ main_interface }} inet static
@@ -26,6 +28,6 @@ iface {{ internal_interface }} inet static
 
 {% endif %}
 
-{% if custom_network_config|default(False) %}
+{% else %}
 {{ custom_network_config }}
 {% endif %}
