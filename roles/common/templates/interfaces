@@ -26,6 +26,6 @@ iface {{ internal_interface }} inet static
 
 {% endif %}
 
-{% if custom_network_config|default(False) &}
+{% if custom_network_config|default(False) %}
 {{ custom_network_config }}
 {% endif %}
