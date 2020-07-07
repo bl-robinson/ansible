@@ -7,8 +7,8 @@
 //include "/etc/bind/zones.rfc1918";
 
 zone "home.blrobinson.uk" IN {
-	type master;
-	file "/etc/bind/db.home.blrobinson.uk";
+    type master;
+    file "/etc/bind/db.home.blrobinson.uk";
 };
 
 zone "0.0.10.in-addr.arpa" {

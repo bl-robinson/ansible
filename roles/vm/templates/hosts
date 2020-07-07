@@ -1,5 +1,5 @@
-127.0.0.1	localhost
-127.0.1.1	{{ansible_hostname}}.home.blrobinson.uk	{{ansible_hostname}}
+127.0.0.1    localhost
+127.0.1.1    {{ansible_hostname}}.home.blrobinson.uk    {{ansible_hostname}}
 
 10.0.2.1 hv.home.blrobinson.uk hv
 
