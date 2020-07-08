@@ -107,3 +107,8 @@ all:
           ip_addr: 10.0.0.13
           internal_interface: ens8
           internal_ip: 10.0.2.9
+        hls:
+          main_interface: enp1s0
+          ip_addr: 10.0.0.15
+          internal_interface: enp7s0
+          internal_ip: 10.0.2.10
