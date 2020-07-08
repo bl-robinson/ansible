@@ -61,7 +61,7 @@
         name: chick-cam.blrobinson.uk,
         cert_name: home_default,
         custom_config:
-          'location / {
+          'location /video {
             resolver 10.0.0.12;
             proxy_pass http://chick-cam:8090;
           }'
