@@ -5,6 +5,30 @@
       - nginx
       - certbot
 
+- name: Make dir vhosts
+  file:
+  path: /var/www/vhosts
+  state: directory
+  mode: '0755'
+
+- name: Make dir default
+  file:
+  path: /var/www/vhosts/default
+  state: directory
+  mode: '0755'
+
+- name: Make dir wedding
+  file:
+  path: /var/www/vhosts/wedding
+  state: directory
+  mode: '0755'
+
+- name: Make dir chick-cam
+  file:
+  path: /var/www/vhosts/chick-cam
+  state: directory
+  mode: '0755'
+
 - name: Install Core Nginx Config
   copy:
     src: nginx.conf
