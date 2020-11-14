@@ -112,3 +112,9 @@ all:
           ip_addr: 10.0.0.15
           internal_interface: enp7s0
           internal_ip: 10.0.2.10
+        minecraft:
+           main_interface: ens3
+           ip_addr: 10.0.0.16
+           internal_interface: enp7s0
+           internal_ip: 10.0.2.11
+
