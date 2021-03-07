@@ -62,6 +62,9 @@ all:
             bond-primary eth0
             bond-mode active-backup
             wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+    hv2:
+      main_interface: eno1
+      ip_addr: 10.0.0.17
   children:
     vms:
       hosts:
