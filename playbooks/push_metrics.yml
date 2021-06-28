@@ -1,6 +1,6 @@
 ---
 - name: Push Metrics
-  hosts: metrics
+  hosts: all
   remote_user: benr
   become: true
   become_method: sudo

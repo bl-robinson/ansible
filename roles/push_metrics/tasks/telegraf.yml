@@ -7,9 +7,10 @@
   apt:
     deb: /tmp/telegraf.deb
 
+
 - name: Install telegraf config
-  copy:
-    src: files/telegraf.conf
+  template:
+    src: 'telegraf.conf'
     dest: /etc/telegraf/telegraf.conf
   notify: reload telegraf
 
