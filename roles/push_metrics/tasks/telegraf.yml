@@ -1,0 +1,20 @@
+- name: download telegraf
+  get_url:
+    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.19.0-1_amd64.deb
+    dest: /tmp/telegraf.deb
+
+- name: Install telegraf .deb package
+  apt:
+    deb: /tmp/telegraf.deb
+
+- name: Install telegraf config
+  copy:
+    src: files/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
+  notify: reload telegraf
+
+- name: start telegraf
+  service:
+    name: telegraf
+    state: started
+    enabled: yes

@@ -97,14 +97,14 @@
           }'
         }
     - {
-      name: wedding.blrobinson.uk,
-      cert_name: home_default,
-      custom_config:
-        '
-        location / {
-          index index.html;
-          root /var/www/vhosts/wedding;
-          try_files $uri $uri/index.html =404;
+        name: metrics.blrobinson.uk,
+        cert_name: home_default,
+        custom_config:
+          '
+          location / {
+            proxy_ssl_verify off;
+            resolver 10.0.0.12;
+            proxy_pass https://metrics.home.blrobinson.uk:8086;
+          }
+          '
         }
-        '
-      }
