@@ -62,9 +62,6 @@ all:
             bond-primary eth0
             bond-mode active-backup
             wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-    hv2:
-      main_interface: eno1
-      ip_addr: 10.0.0.17
   children:
     vms:
       hosts:
@@ -115,4 +112,13 @@ all:
            ip_addr: 10.0.0.16
            internal_interface: enp7s0
            internal_ip: 10.0.2.11
-
+        games:
+           main_interface: enp7s0
+           ip_addr: 10.0.0.19
+           internal_interface: enp1s0
+           internal_ip: 10.0.2.12
+        metrics:
+           main_interface: ens3
+           ip_addr: 10.0.0.20
+           internal_interface: ens8
+           internal_ip: 10.0.2.13

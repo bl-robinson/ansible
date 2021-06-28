@@ -12,6 +12,8 @@ home.blrobinson.uk.    IN    SOA    dns.home.blrobinson.uk. root.dns.home.blrobi
 home.blrobinson.uk.    IN    NS    dns.home.blrobinson.uk.
 home.blrobinson.uk.    IN    MX    10 mail.home.blrobinson.uk.
 
+metrics      IN A 10.0.0.20
+games        IN A 10.0.0.19
 hv2-impi     IN A 10.0.0.18
 hv2          IN A 10.0.0.17
 minecraft    IN A 10.0.0.16
