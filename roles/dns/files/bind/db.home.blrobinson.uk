@@ -33,8 +33,8 @@ rivan        IN A 10.0.0.3
 chick        IN A 10.0.0.2
 fw           IN A 10.0.0.1
 
-ap2-U6       IN A 10.0.0.50
-ap1          IN A 10.0.0.51
+ap2-U6       IN A 10.0.0.35
+ap1          IN A 10.0.0.36
 
-sw1          IN A 10.0.0.60
-shed-sw1     IN A 10.0.0.61
+sw1          IN A 10.0.0.30
+shed-sw1     IN A 10.0.0.31

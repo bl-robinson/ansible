@@ -27,8 +27,8 @@
 19   IN PTR games.home.blrobinson.uk.
 20   IN PTR metrics.home.blrobinson.uk.
 
-50   IN PTR ap2-U6.home.blrobinson.uk.
-51   IN PTR ap1.home.blrobinson.uk.
+35   IN PTR ap2-U6.home.blrobinson.uk.
+36   IN PTR ap1.home.blrobinson.uk.
 
-60   IN PTR sw1.home.blrobinson.uk.
-61   IN PTR shed-sw1.home.blrobinson.uk.
+30   IN PTR sw1.home.blrobinson.uk.
+31   IN PTR shed-sw1.home.blrobinson.uk.
