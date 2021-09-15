@@ -108,3 +108,14 @@
           }
           '
         }
+    - {
+        name: docker-registry.blrobinson.uk,
+        cert_name: home_default,
+        custom_config:
+          '
+          client_max_body_size 0;
+          location / {
+            proxy_pass http://10.0.0.100:5000/;
+          }
+          '
+      }
