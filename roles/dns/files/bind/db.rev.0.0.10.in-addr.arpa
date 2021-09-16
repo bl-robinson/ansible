@@ -20,12 +20,15 @@
 12   IN PTR dns.home.blrobinson.uk.
 13   IN PTR unifi.home.blrobinson.uk.
 14   IN PTR chick-cam.home.blrobinson.uk.
-
+15   IN PTR metrics.home.blrobinson.uk.
 16   IN PTR minecraft.home.blrobinson.uk.
 17   IN PTR hv2.home.blrobinson.uk.
 18   IN PTR hv2-impi.home.blrobinson.uk.
 19   IN PTR games.home.blrobinson.uk.
-20   IN PTR metrics.home.blrobinson.uk.
+
+20   IN PTR k8s-control.home.blrobinson.uk.
+21   IN PTR k8s-worker-1.home.blrobinson.uk.
+22   IN PTR k8s-worker-2.home.blrobinson.uk.
 
 35   IN PTR ap2-U6.home.blrobinson.uk.
 36   IN PTR ap1.home.blrobinson.uk.

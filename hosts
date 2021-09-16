@@ -119,6 +119,6 @@ all:
            internal_ip: 10.0.2.12
         metrics:
            main_interface: ens3
-           ip_addr: 10.0.0.20
+           ip_addr: 10.0.0.15
            internal_interface: ens8
            internal_ip: 10.0.2.13
