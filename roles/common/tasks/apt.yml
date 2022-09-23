@@ -20,7 +20,7 @@
       - unattended-upgrades
       - apt-listchanges
       - mailutils
-      - sendmail
+      - postfix
       - ifenslave
     state: latest
     update_cache: True
