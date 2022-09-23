@@ -1,4 +1,20 @@
 ---
+- name: Copy Influx Data repo
+  copy:
+    src: apt/influxdata.list
+    dest: /etc/apt/sources.list.d/influxdata.list
+
+- name: Copy Influx Key
+  copy:
+    src: apt/influxdb.key
+    dest: /etc/apt
+  register: influxkey
+
+- name: Install Influx Key
+  shell: echo '23a1c8836f0afc5ed24e0486339d7cc8f6790b83886c4c96995b88a061c5bb5d /etc/apt/influxdb.key' | sha256sum -c && cat /etc/apt/influxdb.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
+  become: true
+  when: influxkey.changed
+
 - name: Install Common Tools
   apt:
     name:
@@ -24,7 +40,7 @@
       - ifenslave
     state: latest
     update_cache: True
-    cache_valid_time: 86400
+    cache_valid_time: 300
   become: true
 
 - name: Copy Apt auto-update

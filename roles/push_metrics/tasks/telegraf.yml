@@ -1,11 +1,11 @@
-- name: download telegraf
-  get_url:
-    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.19.0-1_amd64.deb
-    dest: /tmp/telegraf.deb
-
-- name: Install telegraf .deb package
+- name: Install telegraf
   apt:
-    deb: /tmp/telegraf.deb
+    name:
+      - telegraf
+    state: latest
+    update_cache: True
+    cache_valid_time: 300
+  become: true
 
 
 - name: Install telegraf config

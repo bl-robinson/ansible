@@ -1,11 +1,11 @@
-- name: download influxdb
-  get_url:
-    url: https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.7-amd64.deb
-    dest: /tmp/influxdb.deb
-
-- name: Install influxdb .deb package
+- name: Install influxdb
   apt:
-    deb: /tmp/influxdb.deb
+    name:
+      - influxdb2
+    state: latest
+    update_cache: True
+    cache_valid_time: 300
+  become: true
 
 - name: start influxdb
   service:
