@@ -16,7 +16,7 @@ all:
             dns-domain home.blrobinson.uk
             bond-mode active-backup
             bond-miimon 100
-            bond-slaves wlan0
+            bond-slaves none
             bond-primary eth0
 
         auto eth0
