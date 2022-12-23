@@ -21,7 +21,7 @@ hv2-impi     IN A 10.0.0.18
 hv2          IN A 10.0.0.17
 minecraft    IN A 10.0.0.16
 metrics      IN A 10.0.0.15
-chick-cam    IN A 10.0.0.14
+front-door    IN A 10.0.0.14
 unifi        IN A 10.0.0.13
 dns          IN A 10.0.0.12
 data         IN A 10.0.0.11
