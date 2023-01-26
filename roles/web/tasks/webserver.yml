@@ -41,6 +41,14 @@
     minute: "0"
     job: "certbot renew --deploy-hook 'systemctl reload nginx'"
 
+- name: Archive Grabs Folder
+  cron:
+    name: archive grabs folder
+    hour: "9"
+    minute: "0"
+    weekday: "1"
+    job: "rsync -a /var/www/vhosts/default/images /home/benr/grabs-archive/ && rm /var/www/vhosts/default/images/grabs/* && rm /var/www/vhosts/default/images/anirec/*"
+
 - name: Install Nginx Configs
   vars:
     custom_config: "{{ item.custom_config }}"
