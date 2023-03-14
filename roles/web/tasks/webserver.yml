@@ -85,6 +85,7 @@
           location / {
             proxy_ssl_verify off;
             resolver 10.0.0.12;
+            proxy_http_version 1.1;
             proxy_pass https://unifi.home.blrobinson.uk:8443;
           }
           '
@@ -96,6 +97,7 @@
           '
           location / {
             proxy_ssl_verify off;
+            proxy_http_version 1.1;
             resolver 10.0.0.12;
             proxy_pass http://metrics.home.blrobinson.uk:8086;
           }
@@ -109,6 +111,7 @@
           client_max_body_size 0;
           location / {
             proxy_pass http://10.0.0.100:5000/;
+            proxy_http_version 1.1;
           }
           '
       }
