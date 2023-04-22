@@ -14,3 +14,14 @@
       copy:
         src: dovecot/dovecot.conf
         dest: /etc/dovecot/dovecot.conf
+
+    - name: Copy dovecot.service
+      copy:
+        src: dovecot/dovecot.service
+        dest: /etc/systemd/system/dovecot.service
+
+    - name: Enable dovecot service
+      ansible.builtin.service:
+        name: dovecot
+        state: started
+        enabled: yes

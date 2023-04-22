@@ -1,0 +1,22 @@
+[Unit]
+Description=Dovecot IMAP/POP3 email server
+Documentation=man:dovecot(1)
+Documentation=http://wiki2.dovecot.org/
+After=local-fs.target network-online.target mnt-letsencrypt.mount
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/dovecot -F
+PIDFile=/var/run/dovecot/master.pid
+ExecReload=/usr/bin/doveadm reload
+ExecStop=/usr/bin/doveadm stop
+PrivateTmp=true
+NonBlocking=yes
+ProtectSystem=full
+ProtectHome=no
+PrivateDevices=true
+LimitNOFILE=65535
+
+
+[Install]
+WantedBy=multi-user.target

@@ -5,6 +5,11 @@
       - nginx
       - certbot
 
+- name: Install nginx.service
+  copy:
+    src: nginx.service
+    dest: /etc/systemd/system/nginx.service
+
 - name: Make dir vhosts
   file:
     path: /var/www/vhosts
@@ -115,3 +120,9 @@
           }
           '
       }
+
+- name: Enable nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
