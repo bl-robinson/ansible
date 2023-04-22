@@ -6,12 +6,12 @@
 
 - name: Copy Influx Key
   copy:
-    src: apt/influxdb.key
-    dest: /etc/apt
+    src: apt/influxdata-archive_compat.key
+    dest: .
   register: influxkey
 
 - name: Install Influx Key
-  shell: echo '23a1c8836f0afc5ed24e0486339d7cc8f6790b83886c4c96995b88a061c5bb5d /etc/apt/influxdb.key' | sha256sum -c && cat /etc/apt/influxdb.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
+  shell: echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
   become: true
   when: influxkey.changed
 
