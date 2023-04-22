@@ -22,6 +22,7 @@ all:
     front-door:
       main_interface: eth0
       ip_addr: 10.0.0.14
+      doorbell: True
       custom_network_config: |
         auto bond0
         iface bond0 inet static

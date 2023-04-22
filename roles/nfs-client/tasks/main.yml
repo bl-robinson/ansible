@@ -4,6 +4,10 @@
     pkg:
       - nfs-common
 
-- name: Intall LE monut
+- name: Install LE mount
   import_tasks: letsencrypt.yml
   when: letsencrypt is defined and letsencrypt == True
+
+- name: Install door-bell mount
+  import_tasks: door-bell.yml
+  when: doorbell is defined and doorbell == True
