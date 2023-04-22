@@ -1,10 +1,10 @@
 ---
     - name: Set interfaces file
-      template: 
-        src: interfaces
+      template:
+        src: network/interfaces.tmpl
         dest: /etc/network/interfaces
 
     - name: Set resolv.conf
-      copy:
-        src: network/resolv.conf
+      template:
+        src: network/resolv.conf.tmpl
         dest: /etc/resolv.conf

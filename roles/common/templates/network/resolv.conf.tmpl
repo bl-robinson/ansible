@@ -1,0 +1,3 @@
+domain home.blrobinson.uk
+search home.blrobinson.uk
+nameserver {% if override_dns|default(False) %}{{ override_dns }}{% else %}10.0.0.12{% endif %}
