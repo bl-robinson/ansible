@@ -4,6 +4,7 @@ all:
       main_interface: enp2s0
       ip_addr: 10.0.0.4
       override_dns: 8.8.8.8
+      override_metrics_push_endpoint: 10.0.2.13
       custom_network_config: |
         auto lo
         iface lo inet loopback
@@ -99,11 +100,11 @@ all:
         #    ip_addr: 10.0.0.16
         #    internal_interface: enp7s0
         #    internal_ip: 10.0.2.11
-        games:
-           main_interface: enp7s0
-           ip_addr: 10.0.0.19
-           internal_interface: enp1s0
-           internal_ip: 10.0.2.12
+        # games:
+        #    main_interface: enp7s0
+        #    ip_addr: 10.0.0.19
+        #    internal_interface: enp1s0
+        #    internal_ip: 10.0.2.12
         metrics:
            main_interface: ens3
            ip_addr: 10.0.0.15
