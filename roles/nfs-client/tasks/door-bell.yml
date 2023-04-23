@@ -1,6 +1,6 @@
 - name: Create door-bell mountpoint
   file:
-    path: /mnt/door-bwll
+    path: /mnt/door-bell
     state: directory
     mode: '0755'
 
@@ -9,4 +9,4 @@
     src: data.home.blrobinson.uk:/mnt/door-bell
     path: /mnt/door-bell
     state: mounted
-    fstype: nfs
+    fstype: nfs4
