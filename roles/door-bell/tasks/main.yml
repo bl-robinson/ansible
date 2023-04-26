@@ -1,0 +1,33 @@
+---
+- name: Install Git
+  apt:
+    name:
+      - git
+    state: latest
+    update_cache: True
+    cache_valid_time: 86400
+  become: true
+
+
+- name: Clone doorbell github repo
+  git:
+    repo: https://github.com/bl-robinson/doorbell.git
+    dest: /home/benr/doorbell
+    clone: yes
+    update: yes
+
+- name: Install python deps from requirements.txt
+  pip:
+    requirements: /home/benr/doorbell/requirements.txt
+  become: true
+
+- name: Copy systemd service file into place
+  copy:
+    src: doorbell.service
+    dest: /etc/systemd/system/doorbell.service
+
+- name: Start doorbell service
+  systemd:
+    state: started
+    name: doorbell
+    enabled: True

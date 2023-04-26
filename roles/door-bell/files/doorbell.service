@@ -1,0 +1,5 @@
+[Unit]
+Description=Start doorbell recording/streaming service
+
+[Service]
+ExecStart=/usr/bin/python3 /home/benr/doorbell/main.py
