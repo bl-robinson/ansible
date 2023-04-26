@@ -31,3 +31,10 @@
     state: started
     name: doorbell
     enabled: True
+
+- name: Setup Cleanup cron
+  cron:
+    name: "Cleanup Old Video Files"
+    minute: "0"
+    hour: "*"
+    job: "find /mnt/door-bell -mtime +1 -delete"

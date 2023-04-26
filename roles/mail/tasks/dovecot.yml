@@ -21,7 +21,7 @@
         dest: /etc/systemd/system/dovecot.service
 
     - name: Enable dovecot service
-      ansible.builtin.service:
+      service:
         name: dovecot
         state: started
         enabled: yes
