@@ -21,15 +21,26 @@
     requirements: /home/benr/doorbell/requirements.txt
   become: true
 
-- name: Copy systemd service file into place
+- name: Copy systemd doorbell-cam service file into place
   copy:
-    src: doorbell.service
-    dest: /etc/systemd/system/doorbell.service
+    src: doorbell-cam.service
+    dest: /etc/systemd/system/doorbell-cam.service
 
 - name: Start doorbell service
   systemd:
     state: started
-    name: doorbell
+    name: doorbell-cam
+    enabled: True
+
+- name: Copy systemd doorbell-button service file into place
+  copy:
+    src: doorbell-button.service
+    dest: /etc/systemd/system/doorbell-cam.service
+
+- name: Start doorbell-button service
+  systemd:
+    state: started
+    name: doorbell-button
     enabled: True
 
 - name: Setup Cleanup cron
