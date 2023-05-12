@@ -35,7 +35,7 @@
 - name: Copy systemd doorbell-button service file into place
   copy:
     src: doorbell-button.service
-    dest: /etc/systemd/system/doorbell-cam.service
+    dest: /etc/systemd/system/doorbell-button.service
 
 - name: Start doorbell-button service
   systemd:
