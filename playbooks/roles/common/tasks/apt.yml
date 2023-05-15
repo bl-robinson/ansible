@@ -1,20 +1,4 @@
 ---
-- name: Copy Influx Data repo
-  copy:
-    src: apt/influxdata.list
-    dest: /etc/apt/sources.list.d/influxdata.list
-
-- name: Copy Influx Key
-  copy:
-    src: apt/influxdata-archive_compat.key
-    dest: .
-  register: influxkey
-
-- name: Install Influx Key
-  shell: echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-  become: true
-  when: influxkey.changed
-
 - name: Install Common Tools
   apt:
     name:
@@ -38,10 +22,28 @@
       - mailutils
       - postfix
       - ifenslave
+      - gpg
     state: latest
     update_cache: True
     cache_valid_time: 300
   become: true
+
+- name: Copy Influx Data repo
+  copy:
+    src: apt/influxdata.list
+    dest: /etc/apt/sources.list.d/influxdata.list
+
+- name: Get Influx Key
+  register: influxkey
+  get_url:
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+    dest: .
+    checksum: sha256:393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c
+
+- name: Install Influx Key
+  shell: echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
+  become: true
+  when: influxkey.changed
 
 - name: Copy Apt auto-update
   copy:

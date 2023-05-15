@@ -3,7 +3,7 @@ all:
     hv:
       main_interface: enp2s0
       ip_addr: 10.0.0.4
-      override_dns: 8.8.8.8
+      override_dns: 10.0.2.7
       override_metrics_push_endpoint: 10.0.2.13
       custom_network_config: |
         auto lo
@@ -13,7 +13,7 @@ all:
         iface bond0 inet static
           address 10.0.0.4/24
           gateway 10.0.0.1
-          dns-nameservers 10.0.0.3
+          dns-nameservers 10.0.2.7
           slaves enp2s0 enp3s0
           bond-mode active-backup
           bond-miimon 100
@@ -111,3 +111,9 @@ all:
            ip_addr: 10.0.0.15
            internal_interface: ens8
            internal_ip: 10.0.2.13
+        home-assistant:
+           main_interface: enp1s0
+           ip_addr: 10.0.0.3
+           internal_interface: enp7s0
+           internal_ip: 10.0.2.14
+

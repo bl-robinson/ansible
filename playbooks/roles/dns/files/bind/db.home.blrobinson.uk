@@ -33,7 +33,7 @@ shell        IN A 10.0.0.6
 web          IN A 10.0.0.5
 unifi-dash   IN A 10.0.0.5
 hv           IN A 10.0.0.4
-rivan        IN A 10.0.0.3
+home-assistant        IN A 10.0.0.3
 chick        IN A 10.0.0.2
 fw           IN A 10.0.0.1
 

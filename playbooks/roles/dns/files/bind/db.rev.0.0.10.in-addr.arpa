@@ -5,10 +5,10 @@
         4W ; expire
         1D ; minimum
     )
-         IN NS rivan.home.blrobinson.uk.
+         IN NS dns.home.blrobinson.uk.
 1    IN PTR fw.home.blrobinson.uk.
 2    IN PTR chick.home.blrobinson.uk.
-3    IN PTR rivan.home.blrobinson.uk.
+3    IN PTR home-assistant.home.blrobinson.uk.
 4    IN PTR hv.home.blrobinson.uk.
 5    IN PTR web.home.blrobinson.uk.
 6    IN PTR shell.home.blrobinson.uk.
