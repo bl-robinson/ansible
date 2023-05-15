@@ -1,0 +1,54 @@
+---
+
+- name: Install Pre-reqs
+  apt:
+    name:
+      - apparmor
+      - jq
+      - wget
+      - curl
+      - udisks2
+      - libglib2.0-bin
+      - network-manager
+      - dbus
+      - lsb-release
+    state: latest
+    update_cache: True
+    cache_valid_time: 300
+  become: true
+
+- name: Download docker installer
+  get_url:
+    url: https://get.docker.com
+    dest: ./docker.sh
+    checksum: sha256:ac3d3ba5adc88f4ee13729739590872092eb81e7c4c4c99a5de7dab15ac4daea
+  register: dockerInstall
+
+
+- name: Run docker install script
+  script: sh ./docker.sh
+  when: dockerInstall.changed
+
+- name: Get home-assistant os-agent
+  get_url:
+    url: https://github.com/home-assistant/os-agent/releases/download/1.5.1/os-agent_1.5.1_linux_x86_64.deb
+    dest: .
+    checksum: sha256:ca1d976908ca7bcade86c9562d56743315c4163f75fcfedf41dc75ccef060f5b
+  register: osagent
+
+
+- name: Get home-assistant supervised.dev
+  get_url:
+    url: https://github.com/home-assistant/supervised-installer/releases/latest/download/homeassistant-supervised.deb
+    dest: .
+    checksum: sha256:b52d705c4a77b7f36c09097b9566071c102439a0cc677dadc10b62fcade120d3
+  register: homeassistandsupervised
+
+- name: Install home assistant .deb
+  apt:
+    deb: ./os-agent_1.5.1_linux_x86_64.deb
+
+- name: Install home assistant supervised .deb
+  apt:
+    deb: ./homeassistant-supervised.deb
+
