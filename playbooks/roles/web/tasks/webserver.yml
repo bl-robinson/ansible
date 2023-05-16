@@ -109,14 +109,14 @@
           '
         }
     - {
-        name: docker-registry.blrobinson.uk,
+        name: home-assistant.blrobinson.uk,
         cert_name: home_default,
         custom_config:
           '
-          client_max_body_size 0;
           location / {
-            proxy_pass http://10.0.0.100:5000/;
+            proxy_pass http://home-assistant.home.blrobinson.uk:8123/;
             proxy_http_version 1.1;
+            resolver 10.0.0.12;
           }
           '
       }
