@@ -70,11 +70,6 @@ all:
           ip_addr: 10.0.0.6
           internal_interface: enp4s0
           internal_ip: 10.0.2.2
-        # ansible:
-        #   main_interface: ens1
-        #   ip_addr: 10.0.0.7
-        #   internal_interface: enp5s0
-        #   internal_ip: 10.0.2.4
         data:
           main_interface: ens1
           ip_addr: 10.0.0.11
@@ -96,11 +91,6 @@ all:
           ip_addr: 10.0.0.13
           internal_interface: ens8
           internal_ip: 10.0.2.9
-        # minecraft:
-        #    main_interface: enp1s0
-        #    ip_addr: 10.0.0.16
-        #    internal_interface: enp7s0
-        #    internal_ip: 10.0.2.11
         # games:
         #    main_interface: enp7s0
         #    ip_addr: 10.0.0.19
@@ -111,9 +101,4 @@ all:
            ip_addr: 10.0.0.15
            internal_interface: ens8
            internal_ip: 10.0.2.13
-        home-assistant:
-           main_interface: enp1s0
-           ip_addr: 10.0.0.3
-           internal_interface: enp7s0
-           internal_ip: 10.0.2.14
 

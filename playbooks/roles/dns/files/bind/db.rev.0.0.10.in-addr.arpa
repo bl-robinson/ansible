@@ -7,12 +7,12 @@
     )
          IN NS dns.home.blrobinson.uk.
 1    IN PTR fw.home.blrobinson.uk.
-2    IN PTR chick.home.blrobinson.uk.
+
 3    IN PTR home-assistant.home.blrobinson.uk.
 4    IN PTR hv.home.blrobinson.uk.
 5    IN PTR web.home.blrobinson.uk.
 6    IN PTR shell.home.blrobinson.uk.
-7    IN PTR ansible.home.blrobinson.uk.
+
 8    IN PTR vpn.home.blrobinson.uk.
 9    IN PTR hv-ipmi.home.blrobinson.uk.
 10   IN PTR mail.home.blrobinson.uk.
@@ -21,9 +21,7 @@
 13   IN PTR unifi.home.blrobinson.uk.
 14   IN PTR front-door.home.blrobinson.uk.
 15   IN PTR metrics.home.blrobinson.uk.
-16   IN PTR minecraft.home.blrobinson.uk.
-17   IN PTR hv2.home.blrobinson.uk.
-18   IN PTR hv2-impi.home.blrobinson.uk.
+
 19   IN PTR games.home.blrobinson.uk.
 
 20   IN PTR k8s-control.home.blrobinson.uk.

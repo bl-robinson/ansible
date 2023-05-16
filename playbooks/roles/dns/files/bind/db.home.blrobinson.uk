@@ -17,9 +17,7 @@ k8s-worker-1 IN A 10.0.0.21
 k8s-control  IN A 10.0.0.20
 
 games        IN A 10.0.0.19
-hv2-impi     IN A 10.0.0.18
-hv2          IN A 10.0.0.17
-minecraft    IN A 10.0.0.16
+
 metrics      IN A 10.0.0.15
 front-door    IN A 10.0.0.14
 unifi        IN A 10.0.0.13
@@ -28,13 +26,12 @@ data         IN A 10.0.0.11
 mail         IN A 10.0.0.10
 hv-ipmi      IN A 10.0.0.9
 vpn          IN A 10.0.0.8
-ansible      IN A 10.0.0.7
+
 shell        IN A 10.0.0.6
 web          IN A 10.0.0.5
-unifi-dash   IN A 10.0.0.5
 hv           IN A 10.0.0.4
 home-assistant        IN A 10.0.0.3
-chick        IN A 10.0.0.2
+
 fw           IN A 10.0.0.1
 
 ap2-U6       IN A 10.0.0.35
