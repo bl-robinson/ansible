@@ -8,6 +8,11 @@
     cache_valid_time: 86400
   become: true
 
+- name: customize /etc/environment
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    line: "HOME_ASSISTANT_TOKEN={{ home_assistant_api_token }}"
 
 - name: Clone doorbell github repo
   git:
@@ -15,6 +20,9 @@
     dest: /home/benr/doorbell
     clone: yes
     update: yes
+  notify:
+    - restart_doorbell_cam
+    - restart_doorbell_button
 
 - name: Install python deps from requirements.txt
   pip:
