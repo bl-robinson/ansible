@@ -10,7 +10,8 @@
 
 - name: customize /etc/environment
   lineinfile:
-    dest: "/etc/environment"
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
     state: present
     line: "HOME_ASSISTANT_TOKEN={{ home_assistant_api_token }}"
 
