@@ -8,12 +8,33 @@
     cache_valid_time: 86400
   become: true
 
-- name: customize /etc/environment
+- name: Add home assistant token to conf file
   lineinfile:
     dest: "/etc/doorbell/doorbell-button.conf"
     create: true
     state: present
     line: "HOME_ASSISTANT_TOKEN={{ home_assistant_api_token }}"
+
+- name: Add home assistant url to conf file
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "HOME_ASSISTANT_API_URL={{ home_assistant_api_url }}"
+
+- name: Copy systemd doorbell-cam service file into place
+  copy:
+    src: doorbell-cam.service
+    dest: /etc/systemd/system/doorbell-cam.service
+  notify:
+    - daemon_reload
+
+- name: Copy systemd doorbell-button service file into place
+  copy:
+    src: doorbell-button.service
+    dest: /etc/systemd/system/doorbell-button.service
+  notify:
+    - daemon_reload
 
 - name: Clone doorbell github repo
   git:
@@ -30,21 +51,11 @@
     requirements: /home/benr/doorbell/requirements.txt
   become: true
 
-- name: Copy systemd doorbell-cam service file into place
-  copy:
-    src: doorbell-cam.service
-    dest: /etc/systemd/system/doorbell-cam.service
-
 - name: Start doorbell service
   systemd:
     state: started
     name: doorbell-cam
     enabled: True
-
-- name: Copy systemd doorbell-button service file into place
-  copy:
-    src: doorbell-button.service
-    dest: /etc/systemd/system/doorbell-button.service
 
 - name: Start doorbell-button service
   systemd:
