@@ -8,19 +8,13 @@
     cache_valid_time: 86400
   become: true
 
-- name: Add home assistant token to conf file
-  lineinfile:
-    dest: "/etc/doorbell/doorbell-button.conf"
-    create: true
-    state: present
-    line: "HOME_ASSISTANT_TOKEN={{ home_assistant_api_token }}"
+- name: Install Rust Complier for cryptography
+  apt:
+    name:
+      - rustc
 
-- name: Add home assistant url to conf file
-  lineinfile:
-    dest: "/etc/doorbell/doorbell-button.conf"
-    create: true
-    state: present
-    line: "HOME_ASSISTANT_API_URL={{ home_assistant_api_url }}"
+- name: Doorbell button config
+  import_tasks: doorbell-button-config.yml
 
 - name: Copy systemd doorbell-cam service file into place
   copy:

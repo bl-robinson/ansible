@@ -7,6 +7,13 @@
   with_fileglob:
     - 'public_keys/*'
 
+- name: Populate Additional Authroized Keys
+  authorized_key:
+    user: benr
+    state: present
+    key: "{{ item }}"
+  with_items: "{{ extra_authorized_keys | default([]) }}"
+
 - name: ssh config file
   template: src=sshd_config dest=/etc/ssh/sshd_config
   notify: reload sshd

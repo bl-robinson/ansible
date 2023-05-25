@@ -1,0 +1,47 @@
+- name: Add home assistant token to conf file
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "HOME_ASSISTANT_TOKEN={{ home_assistant_api_token }}"
+
+- name: Add home assistant url to conf file
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "HOME_ASSISTANT_API_URL={{ home_assistant_api_url }}"
+
+- name: Add destination host env var
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "UPLOAD_IMAGE_HOSTNAME=grabs.blrobinson.uk"
+
+- name: Add destination ssh connect port env var
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "UPLOAD_IMAGE_PORT=8086"
+
+- name: Add destination url path
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "UPLOAD_IMAGE_DESTINATION_PATH=/var/www/vhosts/default/images/grabs/."
+
+- name: Add Known host
+  known_hosts:
+    host: '[grabs.blrobinson.uk]:8084'
+    key: '[grabs.blrobinson.uk]:8084 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDA/Xer1549uhLqWB9dVAvBwOsFzQ6pF2INFN9VhR9o'
+    state: present
+
+
+- name: Add Known host 2
+  known_hosts:
+    host: grabs.blrobinson.uk
+    key: grabs.blrobinson.uk ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAvdkOBH43YZyhtcGF6vNnyxlPBLE+jeV6f3I+O0Bk6A
+    state: present
