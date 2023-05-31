@@ -62,4 +62,4 @@
     name: "Cleanup Old Video Files"
     minute: "0"
     hour: "*"
-    job: "find /mnt/door-bell -mtime 1 -delete"
+    job: "find /mnt/doorbell -mtime 1 -delete"
