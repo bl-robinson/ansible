@@ -4,3 +4,6 @@ After=local-fs.target network-online.target mnt-doorbell.mount
 
 [Service]
 ExecStart=/usr/bin/python3 /home/benr/doorbell/camera.py
+
+[Install]
+WantedBy=multi-user.target
