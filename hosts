@@ -105,4 +105,8 @@ all:
            ip_addr: 10.0.0.15
            internal_interface: ens8
            internal_ip: 10.0.2.13
-
+        adguard:
+           main_interface: enp1s0
+           ip_addr: 10.0.0.17
+           internal_interface: enp2s0
+           internal_ip: 10.0.2.14

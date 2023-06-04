@@ -18,6 +18,7 @@ k8s-control  IN A 10.0.0.20
 
 hv2          IN A 10.0.0.19
 
+adguard      IN A 10.0.0.17
 doorbell     IN A 10.0.0.16
 metrics      IN A 10.0.0.15
 front-door   IN A 10.0.0.14

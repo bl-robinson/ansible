@@ -5,6 +5,7 @@
       - qemu-system
       - libvirt-clients
       - libvirt-daemon-system
+      - qemu-utils
     state: latest
     update_cache: True
     cache_valid_time: 300

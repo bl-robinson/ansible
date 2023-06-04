@@ -22,6 +22,7 @@
 14   IN PTR front-door.home.blrobinson.uk.
 15   IN PTR metrics.home.blrobinson.uk.
 16   IN PTR doorbell.home.blrobinson.uk.
+17   IN PTR adguard.home.blrobinson.uk.
 
 19   IN PTR hv2.home.blrobinson.uk.
 
