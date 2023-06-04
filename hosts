@@ -19,6 +19,9 @@ all:
           bond-miimon 100
           bond-downdelay 200
           bond-updeley 200
+    hv2:
+        main_interface: enp4s0
+        ip_addr: 10.0.0.19
     front-door:
       main_interface: eth0
       ip_addr: 10.0.0.14
@@ -94,11 +97,6 @@ all:
           ip_addr: 10.0.0.13
           internal_interface: ens8
           internal_ip: 10.0.2.9
-        # games:
-        #    main_interface: enp7s0
-        #    ip_addr: 10.0.0.19
-        #    internal_interface: enp1s0
-        #    internal_ip: 10.0.2.12
         metrics:
            main_interface: ens3
            ip_addr: 10.0.0.15

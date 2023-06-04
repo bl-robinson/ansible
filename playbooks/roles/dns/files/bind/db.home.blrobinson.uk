@@ -16,10 +16,11 @@ k8s-worker-2 IN A 10.0.0.22
 k8s-worker-1 IN A 10.0.0.21
 k8s-control  IN A 10.0.0.20
 
-games        IN A 10.0.0.19
+hv2          IN A 10.0.0.19
 
+doorbell     IN A 10.0.0.16
 metrics      IN A 10.0.0.15
-front-door    IN A 10.0.0.14
+front-door   IN A 10.0.0.14
 unifi        IN A 10.0.0.13
 dns          IN A 10.0.0.12
 data         IN A 10.0.0.11
