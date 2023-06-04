@@ -1,0 +1,10 @@
+---
+- name: Hypervisor
+  hosts: hv:hv2
+  remote_user: benr
+  become: true
+  become_method: sudo
+
+
+  roles:
+    - hypervisor
