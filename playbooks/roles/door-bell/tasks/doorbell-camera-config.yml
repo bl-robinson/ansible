@@ -1,0 +1,17 @@
+- name: Install python deps from requirements.txt
+  pip:
+    requirements: /home/benr/doorbell/requirements-camera.txt
+  become: true
+
+- name: Setup Cleanup cron
+  cron:
+    name: "Cleanup Old Video Files"
+    minute: "0"
+    hour: "*"
+    job: "find /mnt/doorbell -mtime 1 -delete"
+
+- name: Start doorbell camera service
+  systemd:
+    state: started
+    name: doorbell-cam
+    enabled: True

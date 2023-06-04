@@ -1,3 +1,8 @@
+- name: Install python deps from requirements.txt
+  pip:
+    requirements: /home/benr/doorbell/requirements-button.txt
+  become: true
+
 - name: Add home assistant token to conf file
   lineinfile:
     dest: "/etc/doorbell/doorbell-button.conf"
@@ -33,15 +38,26 @@
     state: present
     line: "UPLOAD_IMAGE_DESTINATION_PATH=/var/www/vhosts/default/images/grabs/."
 
+- name: Known hosts DIR exists
+  file:
+    path: /root/.ssh
+    state: directory
+    mode: '0755'
+
 - name: Add Known host
   known_hosts:
     host: '[grabs.blrobinson.uk]:8084'
     key: '[grabs.blrobinson.uk]:8084 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDA/Xer1549uhLqWB9dVAvBwOsFzQ6pF2INFN9VhR9o'
     state: present
 
-
 - name: Add Known host 2
   known_hosts:
     host: grabs.blrobinson.uk
     key: grabs.blrobinson.uk ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAvdkOBH43YZyhtcGF6vNnyxlPBLE+jeV6f3I+O0Bk6A
     state: present
+
+- name: Start doorbell-button service
+  systemd:
+    state: started
+    name: doorbell-button
+    enabled: True

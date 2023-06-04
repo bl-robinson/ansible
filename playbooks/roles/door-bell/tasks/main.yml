@@ -8,13 +8,11 @@
     cache_valid_time: 86400
   become: true
 
-- name: Install Requirements for paramiko
+- name: Install Apt requirements
   apt:
     name:
+      - pip
       - libssl-dev
-
-- name: Doorbell button config
-  import_tasks: doorbell-button-config.yml
 
 - name: Copy systemd doorbell-cam service file into place
   copy:
@@ -40,26 +38,10 @@
     - restart_doorbell_cam
     - restart_doorbell_button
 
-- name: Install python deps from requirements.txt
-  pip:
-    requirements: /home/benr/doorbell/requirements.txt
-  become: true
+- name: Doorbell button config
+  import_tasks: doorbell-button-config.yml
+  when: "'doorbell' in inventory_hostname"
 
-- name: Start doorbell service
-  systemd:
-    state: started
-    name: doorbell-cam
-    enabled: True
-
-- name: Start doorbell-button service
-  systemd:
-    state: started
-    name: doorbell-button
-    enabled: True
-
-- name: Setup Cleanup cron
-  cron:
-    name: "Cleanup Old Video Files"
-    minute: "0"
-    hour: "*"
-    job: "find /mnt/doorbell -mtime 1 -delete"
+- name: Doorbell camera config
+  import_tasks: doorbell-camera-config.yml
+  when: "'front-door' in inventory_hostname"
