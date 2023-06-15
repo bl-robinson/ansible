@@ -54,9 +54,9 @@ all:
             bond-primary eth0
             bond-mode active-backup
             wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-    doorbell:
-        main_interface: enp4s0
-        ip_addr: 10.0.0.16
+    # doorbell:
+    #     main_interface: enp4s0
+    #     ip_addr: 10.0.0.16
   children:
     vms:
       hosts:
