@@ -1,6 +1,6 @@
 ---
 - name: Door Bell
-  hosts: front-door:doorbell
+  hosts: front-door
   remote_user: benr
   become: true
   become_method: sudo
