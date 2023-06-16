@@ -40,8 +40,6 @@
 
 - name: Doorbell button config
   import_tasks: doorbell-button-config.yml
-  when: "'doorbell' in inventory_hostname"
 
 - name: Doorbell camera config
   import_tasks: doorbell-camera-config.yml
-  when: "'front-door' in inventory_hostname"
