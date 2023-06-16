@@ -13,6 +13,7 @@
     name:
       - pip
       - libssl-dev
+      - pigpio
 
 - name: Copy systemd doorbell-cam service file into place
   copy:

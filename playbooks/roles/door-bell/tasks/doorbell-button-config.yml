@@ -31,6 +31,20 @@
     state: present
     line: "UPLOAD_IMAGE_PORT=8086"
 
+- name: Add destination ssh connect port env var
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "PIGPIO_ADDR=doorbell"
+
+- name: Add destination ssh connect port env var
+  lineinfile:
+    dest: "/etc/doorbell/doorbell-button.conf"
+    create: true
+    state: present
+    line: "GPIOZERO_PIN_FACTORY=pigpio"
+
 - name: Add destination url path
   lineinfile:
     dest: "/etc/doorbell/doorbell-button.conf"
