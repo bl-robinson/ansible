@@ -36,7 +36,7 @@
     dest: "/etc/doorbell/doorbell-button.conf"
     create: true
     state: present
-    line: "PIGPIO_ADDR=doorbell"
+    line: "PIGPIO_ADDR=doorbell.home.blrobinson.uk"
 
 - name: Add destination ssh connect port env var
   lineinfile:
