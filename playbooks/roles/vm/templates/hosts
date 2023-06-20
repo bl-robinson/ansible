@@ -1,7 +1,7 @@
 127.0.0.1    localhost
+{% if inventory_hostname != "adguard" %}
 127.0.1.1    {{ansible_hostname}}.home.blrobinson.uk    {{ansible_hostname}}
 
-{% if inventory_hostname != "adguard" %}
 10.0.2.1 hv.home.blrobinson.uk hv
 {% endif %}
 
