@@ -17,7 +17,7 @@ k8s-worker-1 IN A 10.0.0.21
 k8s-control  IN A 10.0.0.20
 
 hv2          IN A 10.0.0.19
-
+games        IN A 10.0.0.18
 adguard      IN A 10.0.0.17
 doorbell     IN A 10.0.0.16
 metrics      IN A 10.0.0.15
