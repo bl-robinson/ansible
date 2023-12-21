@@ -1,3 +1,0 @@
----
-    - name: Unifi Install
-      import_tasks: unifi.yml

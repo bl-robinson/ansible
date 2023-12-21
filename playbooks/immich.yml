@@ -1,11 +1,9 @@
 ---
-- name: Unifi Controller Setup
-  hosts: unifi
+- name: immich
+  hosts: immich
   remote_user: benr
   become: true
   become_method: sudo
 
-
   roles:
-    - unifi
-    
+    - immich
