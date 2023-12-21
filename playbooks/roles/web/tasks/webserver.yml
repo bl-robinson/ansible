@@ -140,6 +140,22 @@
           }
           '
       }
+    - {
+        name: immich.blrobinson.uk,
+        cert_name: home_default,
+        custom_config:
+          '
+          location / {
+            proxy_pass http://immich.home.blrobinson.uk:2283;
+            resolver 10.0.0.12;
+            proxy_set_header Host $host;
+            proxy_pass_header Authorization;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header X-Forwarded-For $remote_addr;
+          }
+          '
+      }
 
 - name: Enable nginx service
   service:
