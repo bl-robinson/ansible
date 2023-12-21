@@ -88,6 +88,7 @@ all:
           internal_interface: ens8
           internal_ip: 10.0.2.7
         unifi:
+          # Unifi application is configured using https://glennr.nl/s/unifi-network-controller
           main_interface: ens3
           ip_addr: 10.0.0.13
           internal_interface: ens8
