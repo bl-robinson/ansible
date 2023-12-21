@@ -28,7 +28,7 @@ data         IN A 10.0.0.11
 mail         IN A 10.0.0.10
 hv-ipmi      IN A 10.0.0.9
 vpn          IN A 10.0.0.8
-
+immich       IN A 10.0.0.7
 shell        IN A 10.0.0.6
 web          IN A 10.0.0.5
 hv           IN A 10.0.0.4

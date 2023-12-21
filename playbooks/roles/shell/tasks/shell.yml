@@ -2,4 +2,4 @@
 - name: Install Required Packages
   apt:
     pkg:
-      - python-websocket
+      # - python-websocket

@@ -12,7 +12,7 @@
 4    IN PTR hv.home.blrobinson.uk.
 5    IN PTR web.home.blrobinson.uk.
 6    IN PTR shell.home.blrobinson.uk.
-
+7    IN PTR immich.home.blrobinson.uk.
 8    IN PTR vpn.home.blrobinson.uk.
 9    IN PTR hv-ipmi.home.blrobinson.uk.
 10   IN PTR mail.home.blrobinson.uk.
@@ -30,6 +30,7 @@
 20   IN PTR k8s-control.home.blrobinson.uk.
 21   IN PTR k8s-worker-1.home.blrobinson.uk.
 22   IN PTR k8s-worker-2.home.blrobinson.uk.
+
 
 35   IN PTR ap2-U6.home.blrobinson.uk.
 36   IN PTR ap1.home.blrobinson.uk.

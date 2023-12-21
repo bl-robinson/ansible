@@ -22,38 +22,38 @@ all:
     # hv2:
     #     main_interface: enp4s0
     #     ip_addr: 10.0.0.19
-    front-door:
-      main_interface: eth0
-      ip_addr: 10.0.0.14
-      doorbell: True
-      custom_network_config: |
-        auto bond0
-        iface bond0 inet static
-            address 10.0.0.14/24
-            netmask 255.255.255.0
-            gateway 10.0.0.1
-            network 10.0.0.0
-            broadcast 10.0.0.255
-            dns-nameservers 10.0.0.12
-            dns-search home.blrobinson.uk
-            dns-domain home.blrobinson.uk
-            bond-mode active-backup
-            bond-miimon 100
-            bond-slaves none
-            bond-primary eth0
+    # front-door:
+    #   main_interface: eth0
+    #   ip_addr: 10.0.0.14
+    #   doorbell: True
+    #   custom_network_config: |
+    #     auto bond0
+    #     iface bond0 inet static
+    #         address 10.0.0.14/24
+    #         netmask 255.255.255.0
+    #         gateway 10.0.0.1
+    #         network 10.0.0.0
+    #         broadcast 10.0.0.255
+    #         dns-nameservers 10.0.0.12
+    #         dns-search home.blrobinson.uk
+    #         dns-domain home.blrobinson.uk
+    #         bond-mode active-backup
+    #         bond-miimon 100
+    #         bond-slaves none
+    #         bond-primary eth0
 
-        auto eth0
-        iface eth0 inet manual
-            bond-master bond0
-            bond-primary eth0
-            bond-mode active-backup
+    #     auto eth0
+    #     iface eth0 inet manual
+    #         bond-master bond0
+    #         bond-primary eth0
+    #         bond-mode active-backup
 
-        auto wlan0
-        iface wlan0 inet manual
-            bond-master bond0
-            bond-primary eth0
-            bond-mode active-backup
-            wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+    #     auto wlan0
+    #     iface wlan0 inet manual
+    #         bond-master bond0
+    #         bond-primary eth0
+    #         bond-mode active-backup
+    #         wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
   children:
     vms:
       hosts:
@@ -66,11 +66,6 @@ all:
           extra_authorized_keys:
             - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCdSo8iRNmOgJkdlt0UTUtpKzp5xzTuitQ1VXbq+mr1fcLiHvWH44g/OqZydJ+uD3fEy5T4KcYtw6D0iz4MZ/7G+ofl7kCFXDsjcemRViNYtZKsw5qAjJEgknIA+0K2MLFsS24117Oa5ykMj1hwVWT/2ENGYw7LjUYBdWJzJ+/+NHQMc+9ou0jwUcJWXMOgtzOar0pS9+FK6Zpm3jNuxxkY5wIyKco3kRfWVgU19OKFBfnKIAm72fpt2cqNt1hz6ZVKoTfHpfpl15c5XeeL7O3Evqlhr+pSjncsZY6+vXY1QI+BeKFRa5zHZ9A20T5Jf6hW+/JoN4Hb9lingQYMOJYersP8Sz/ntwcnlEqChq4WeDJylknCFzbRSV+ELHqDw6Ms+ATuuI5Mfi7ZR8dzp6am9TyyRGT0I0yaO+rjRz/QzEKixBphuAGNpGjHmpN6pcx7zxkBZfqi5xp/MATPL93VUE4TYHBMwC+vc5qW5VDLOx0VNBp9lC04R3GeqOye2IU= root@front-door
             - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSqVnrdiimDQS0OaxtGXzmqBxv8Xrqt0NrrtUFDywF5fRUzqSdCtUKSywVjwGuWs61ozSWVR8ACYS9TpM+vARUzoyVVt+/2ug/3AWuqZnnIj2F53AIOHIpxdLR0DaPJDL7igV8s573d25vSYHD/xgFT5tXYIRefJRY/Fctols0RMbJZlpfDPWkIQIM8uE88IoBE2q6BGdo3sZrSzvlvrbR0i5mwcouKKsiMz6g6s6ZPl+X/nT7sf8B14vPfdTxa5uo79KyP/o+d8uENWziduI2dSBH058Yjp/3Q+94wdRcZYT16xJPEHbhoW/gwVy8vHBMwiacQfm+ZyoCe95ecNnEgDgF/rC9M5J7+bQ4vUdZz7Be23esFK2EkyrpyryG1PUFly7WljxJpORceoBCbHppMw5Xhd4MJS/tY5p1Rq+pFjqkFZiNMxu+93FozSlFu+m6/zeghKNQzLNT0IdzRCMd7LS3d4czTBDTiofTH9WdznShLyAzJGSM6itONEleBIK0ZDmLU6ub4S/NMOZqhHZrh8RXPYGhnvvPSQ9TzXVcaCz3K6dkE6uaJswih0UEAVndVdxiOFtZSIU6xeG64z+oDPFszz084H4qxXq7+6ulXw1hkRDsmnclIzOL6ZXD+MBEQkTxq/Wt2J9f/+pIWfEFB6V/luZIdOQ8ZvCoqKrK5Q==
-        #vpn:
-        #  main_interface: enp1s0
-        #  ip_addr: 10.0.0.8
-        #  internal_interface: enp7s0
-        #  internal_ip: 10.0.2.3
         shell:
           main_interface: enp1s0
           ip_addr: 10.0.0.6
@@ -112,3 +107,8 @@ all:
            ip_addr: 10.0.0.18
            internal_interface: enp1s0
            internal_ip: 10.0.2.15
+        immich:
+          main_interface: enp1s0
+          ip_addr: 10.0.0.7
+          internal_interface: enp7s0
+          internal_ip: 10.0.2.16
