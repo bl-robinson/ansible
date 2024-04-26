@@ -19,41 +19,6 @@ all:
           bond-miimon 100
           bond-downdelay 200
           bond-updeley 200
-    # hv2:
-    #     main_interface: enp4s0
-    #     ip_addr: 10.0.0.19
-    # front-door:
-    #   main_interface: eth0
-    #   ip_addr: 10.0.0.14
-    #   doorbell: True
-    #   custom_network_config: |
-    #     auto bond0
-    #     iface bond0 inet static
-    #         address 10.0.0.14/24
-    #         netmask 255.255.255.0
-    #         gateway 10.0.0.1
-    #         network 10.0.0.0
-    #         broadcast 10.0.0.255
-    #         dns-nameservers 10.0.0.12
-    #         dns-search home.blrobinson.uk
-    #         dns-domain home.blrobinson.uk
-    #         bond-mode active-backup
-    #         bond-miimon 100
-    #         bond-slaves none
-    #         bond-primary eth0
-
-    #     auto eth0
-    #     iface eth0 inet manual
-    #         bond-master bond0
-    #         bond-primary eth0
-    #         bond-mode active-backup
-
-    #     auto wlan0
-    #     iface wlan0 inet manual
-    #         bond-master bond0
-    #         bond-primary eth0
-    #         bond-mode active-backup
-    #         wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
   children:
     vms:
       hosts:

@@ -1,9 +1,0 @@
----
-- name: immich
-  hosts: immich
-  remote_user: benr
-  become: true
-  become_method: sudo
-
-  roles:
-    - immich
