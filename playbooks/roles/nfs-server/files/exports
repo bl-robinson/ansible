@@ -12,3 +12,4 @@
 /mnt/letsencrypt    10.0.0.10/32(rw,no_root_squash,subtree_check) 10.0.0.5/32(rw,no_root_squash,subtree_check)
 /mnt/k8s   10.0.0.0/24(rw,no_root_squash,subtree_check)
 /mnt/door-bell   10.0.0.0/24(rw,no_root_squash,subtree_check)
+/mnt/container-registry   10.0.0.0/24(rw,no_root_squash,subtree_check)F

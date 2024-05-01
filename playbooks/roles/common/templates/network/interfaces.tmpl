@@ -12,11 +12,11 @@ iface lo inet loopback
 # The primary network interface
 allow-hotplug {{ main_interface }}
 iface {{ main_interface }} inet static
-    address {{ ip_addr }}/24
-    netmask 255.255.255.0
+    address {{ ip_addr }}/23
+    netmask 255.255.254.0
     gateway 10.0.0.1
     network 10.0.0.0
-    broadcast 10.0.0.255
+    broadcast 10.0.1.255
     dns-nameservers 10.0.0.12
     dns-search home.blrobinson.uk
     dns-domain home.blrobinson.uk
