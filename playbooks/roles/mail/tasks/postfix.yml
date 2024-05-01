@@ -36,6 +36,12 @@
         dest: /etc/aliases
       register: aliases
 
+    - name: Add sasl_passwd
+      template:
+        src: templates/sasl_passwd.tmpl
+        dest: /etc/postfix/sasl_passwd
+
+
     - name: Aliases
       command:
         cmd: newaliases
