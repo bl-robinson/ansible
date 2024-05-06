@@ -38,6 +38,7 @@
 30   IN PTR sw1.home.blrobinson.uk.
 31   IN PTR shed-sw1.home.blrobinson.uk.
 
-100  IN PTR container-registry.k8s.home.blrobinson.uk
-101  IN PTR web.k8s.home.blrobinson.uk
-103  IN PTR dns.k8s.home.blrobinson.uk
+100  IN PTR container-registry.k8s.home.blrobinson.uk.
+101  IN PTR web.k8s.home.blrobinson.uk.
+102  IN PTR adguard.k8s.home.blrobinson.uk.
+103  IN PTR dns.k8s.home.blrobinson.uk.
