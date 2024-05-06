@@ -13,4 +13,5 @@
 /mnt/k8s   10.0.0.0/23(rw,no_root_squash,subtree_check)
 # /mnt/door-bell   10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/container-registry   10.0.0.0/23(rw,no_root_squash,subtree_check)
-/mnt/adguard    10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/adguard/work    10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/adguard/config  10.0.0.0/23(rw,no_root_squash,subtree_check)
