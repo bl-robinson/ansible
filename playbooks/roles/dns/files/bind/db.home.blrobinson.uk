@@ -14,7 +14,7 @@ home.blrobinson.uk.    IN    MX    10 mail.home.blrobinson.uk.
 
 container-registry.k8s IN A 10.0.0.100
 web.k8s IN A 10.0.0.101
-adguard.k8s IN A 10.0.0.101
+adguard.k8s IN A 10.0.0.102
 dns.k8s IN A 10.0.0.103
 
 
