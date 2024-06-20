@@ -5,6 +5,18 @@ all:
       ip_addr: 10.0.0.4
       override_dns: 10.0.2.7
       override_metrics_push_endpoint: 10.0.2.13
+    k8s-worker-3:
+      main_interface: eth0
+      ip_addr: 10.0.0.23
+      override_dns: 8.8.8.8
+    k8s-worker-4:
+      main_interface: eth0
+      ip_addr: 10.0.0.24
+      override_dns: 8.8.8.8
+    k8s-worker-5:
+      main_interface: eth0
+      ip_addr: 10.0.0.25
+      override_dns: 8.8.8.8
   children:
     vms:
       hosts:

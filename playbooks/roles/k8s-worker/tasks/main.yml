@@ -1,0 +1,5 @@
+---
+- name: Run Install .sh worker setup script
+  ansible.builtin.script: /install.sh
+  args:
+    creates: /install.sh

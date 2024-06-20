@@ -15,3 +15,8 @@
 /mnt/container-registry   10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/adguard/work    10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/adguard/config  10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/unifi-config    10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/unifi-mongo-db  10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/mail-dovecot 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/mail-postfix 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/prometheus      10.0.0.0/23(rw,no_root_squash,subtree_check)
