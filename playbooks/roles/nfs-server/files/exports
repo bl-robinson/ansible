@@ -22,3 +22,4 @@
 /mnt/prometheus      10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/immich 10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/photos 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/screenshots 10.0.0.0/23(rw,no_root_squash,subtree_check)
