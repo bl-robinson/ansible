@@ -6,7 +6,7 @@ all:
       override_dns: 8.8.8.8
       override_metrics_push_endpoint: 10.0.2.13
     hv2:
-      main_interface: enp4s0
+      main_interface: enp0s25
       ip_addr: 10.0.0.19
       override_dns: 8.8.8.8
     k8s-worker-3:
