@@ -17,9 +17,17 @@
 /mnt/adguard/config  10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/unifi-config    10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/unifi-mongo-db  10.0.0.0/23(rw,no_root_squash,subtree_check)
-/mnt/mail-dovecot 10.0.0.0/23(rw,no_root_squash,subtree_check)
-/mnt/mail-postfix 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/mail 10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/prometheus      10.0.0.0/23(rw,no_root_squash,subtree_check)
-/mnt/immich 10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/photos 10.0.0.0/23(rw,no_root_squash,subtree_check)
 /mnt/screenshots 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/loki 10.0.0.0/23(rw,no_root_squash,subtree_check)
+
+/mnt/immich/data 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/immich/redis-master 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/immich/postgres 10.0.0.0/23(rw,no_root_squash,subtree_check)
+
+/mnt/foundry 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/mnt/foundry-container-cache 10.0.0.0/23(rw,no_root_squash,subtree_check)
+
+/mnt/home-assistant 10.0.0.0/23(rw,no_root_squash,subtree_check)
