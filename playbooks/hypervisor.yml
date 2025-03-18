@@ -1,6 +1,6 @@
 ---
 - name: Hypervisor
-  hosts: hv:hv2
+  hosts: hv:hv1:hv2
   remote_user: benr
   become: true
   become_method: sudo
