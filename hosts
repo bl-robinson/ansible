@@ -12,9 +12,12 @@ all:
       main_interface: enp0s25
       ip_addr: 10.0.0.19
       override_dns: 8.8.8.8
-    backup:
+    data:
       main_interface: eth0
       ip_addr: 10.0.0.3
+    backup:
+      main_interface: eth0
+      ip_addr: 10.0.0.6
     shed-cam:
       main_interface: eth0
       ip_addr: 10.0.0.2
@@ -44,62 +47,3 @@ all:
             bond-primary eth0
             bond-mode active-backup
             wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-  children:
-    vms:
-      hosts:
-        web:
-          main_interface: ens1
-          ip_addr: 10.0.0.5
-          internal_interface: enp5s0
-          internal_ip: 10.0.2.8
-          letsencrypt: True
-          extra_authorized_keys:
-            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCdSo8iRNmOgJkdlt0UTUtpKzp5xzTuitQ1VXbq+mr1fcLiHvWH44g/OqZydJ+uD3fEy5T4KcYtw6D0iz4MZ/7G+ofl7kCFXDsjcemRViNYtZKsw5qAjJEgknIA+0K2MLFsS24117Oa5ykMj1hwVWT/2ENGYw7LjUYBdWJzJ+/+NHQMc+9ou0jwUcJWXMOgtzOar0pS9+FK6Zpm3jNuxxkY5wIyKco3kRfWVgU19OKFBfnKIAm72fpt2cqNt1hz6ZVKoTfHpfpl15c5XeeL7O3Evqlhr+pSjncsZY6+vXY1QI+BeKFRa5zHZ9A20T5Jf6hW+/JoN4Hb9lingQYMOJYersP8Sz/ntwcnlEqChq4WeDJylknCFzbRSV+ELHqDw6Ms+ATuuI5Mfi7ZR8dzp6am9TyyRGT0I0yaO+rjRz/QzEKixBphuAGNpGjHmpN6pcx7zxkBZfqi5xp/MATPL93VUE4TYHBMwC+vc5qW5VDLOx0VNBp9lC04R3GeqOye2IU= root@front-door
-            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSqVnrdiimDQS0OaxtGXzmqBxv8Xrqt0NrrtUFDywF5fRUzqSdCtUKSywVjwGuWs61ozSWVR8ACYS9TpM+vARUzoyVVt+/2ug/3AWuqZnnIj2F53AIOHIpxdLR0DaPJDL7igV8s573d25vSYHD/xgFT5tXYIRefJRY/Fctols0RMbJZlpfDPWkIQIM8uE88IoBE2q6BGdo3sZrSzvlvrbR0i5mwcouKKsiMz6g6s6ZPl+X/nT7sf8B14vPfdTxa5uo79KyP/o+d8uENWziduI2dSBH058Yjp/3Q+94wdRcZYT16xJPEHbhoW/gwVy8vHBMwiacQfm+ZyoCe95ecNnEgDgF/rC9M5J7+bQ4vUdZz7Be23esFK2EkyrpyryG1PUFly7WljxJpORceoBCbHppMw5Xhd4MJS/tY5p1Rq+pFjqkFZiNMxu+93FozSlFu+m6/zeghKNQzLNT0IdzRCMd7LS3d4czTBDTiofTH9WdznShLyAzJGSM6itONEleBIK0ZDmLU6ub4S/NMOZqhHZrh8RXPYGhnvvPSQ9TzXVcaCz3K6dkE6uaJswih0UEAVndVdxiOFtZSIU6xeG64z+oDPFszz084H4qxXq7+6ulXw1hkRDsmnclIzOL6ZXD+MBEQkTxq/Wt2J9f/+pIWfEFB6V/luZIdOQ8ZvCoqKrK5Q==
-        shell:
-          main_interface: enp1s0
-          ip_addr: 10.0.0.6
-          internal_interface: enp4s0
-          internal_ip: 10.0.2.2
-        data:
-          main_interface: ens1
-          ip_addr: 10.0.0.11
-          internal_interface: enp8s0
-          internal_ip: 10.0.2.5
-        mail:
-          main_interface: ens3
-          ip_addr: 10.0.0.10
-          internal_interface: enp8s0
-          internal_ip: 10.0.2.6
-          letsencrypt: True
-        dns:
-          main_interface: ens3
-          ip_addr: 10.0.0.12
-          internal_interface: ens8
-          internal_ip: 10.0.2.7
-        unifi:
-          # Unifi application is configured using https://glennr.nl/s/unifi-network-controller
-          main_interface: ens3
-          ip_addr: 10.0.0.13
-          internal_interface: ens8
-          internal_ip: 10.0.2.9
-        metrics:
-           main_interface: ens3
-           ip_addr: 10.0.0.15
-           internal_interface: ens8
-           internal_ip: 10.0.2.13
-        adguard:
-           main_interface: enp1s0
-           ip_addr: 10.0.0.17
-           internal_interface: enp2s0
-           internal_ip: 10.0.2.14
-        games:
-           main_interface: enp7s0
-           ip_addr: 10.0.0.18
-           internal_interface: enp1s0
-           internal_ip: 10.0.2.15
-        immich:
-          main_interface: enp1s0
-          ip_addr: 10.0.0.7
-          internal_interface: enp7s0
-          internal_ip: 10.0.2.16
