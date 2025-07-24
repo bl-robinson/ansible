@@ -8,16 +8,20 @@ all:
       main_interface: enp2s0
       ip_addr: 10.0.0.5
       override_dns: 8.8.8.8
+      ip6_addr: 2a06:61c2:27ae::1:0003
     hv2:
       main_interface: enp0s25
       ip_addr: 10.0.0.19
       override_dns: 8.8.8.8
+      ip6_addr: 2a06:61c2:27ae::1:0004
     data:
       main_interface: eth0
       ip_addr: 10.0.0.3
+      ip6_addr: 2a06:61c2:27ae::1:0002
     backup:
       main_interface: eth0
       ip_addr: 10.0.0.6
+      ip6_addr: 2a06:61c2:27ae::1:0001
     shed-cam:
       main_interface: eth0
       ip_addr: 10.0.0.2
@@ -32,6 +36,16 @@ all:
             dns-nameservers 10.0.0.102
             dns-search home.blrobinson.uk
             dns-domain home.blrobinson.uk
+            bond-mode active-backup
+            bond-miimon 100
+            bond-slaves none
+            bond-primary eth0
+        iface bond0 inet6 static
+            address 2a06:61c2:27ae::1:0005
+            netmask 64
+            gateway ip6_addr: 2a06:61c2:27ae::
+            autoconf 0
+            dns-nameservers 2620:fe::fe 2606:4700:4700::64
             bond-mode active-backup
             bond-miimon 100
             bond-slaves none

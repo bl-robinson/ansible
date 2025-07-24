@@ -21,6 +21,13 @@ iface {{ main_interface }} inet static
     dns-search home.blrobinson.uk
     dns-domain home.blrobinson.uk
 
+iface {{ main_interface }} inet6 static
+    address {{ ip6_addr }}
+    netmask 64
+    gateway 2a06:61c2:27ae::
+    autoconf 0
+    dns-nameserver 2620:fe::fe 2606:4700:4700::64
+
 {% if internal_interface|default(False) %}
 allow-hotplug {{ internal_interface }}
 iface {{ internal_interface }} inet static
