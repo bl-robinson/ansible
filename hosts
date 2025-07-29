@@ -26,8 +26,10 @@ all:
       main_interface: eth0
       ip_addr: 10.0.0.2
       custom_network_config: |
-        auto bond0
-        iface bond0 inet static
+        auto lo
+        iface lo inet loopback
+        auto wlan0
+        iface wlan0 inet static
             address 10.0.0.2/23
             netmask 255.255.254.0
             gateway 10.0.0.1
@@ -36,28 +38,11 @@ all:
             dns-nameservers 10.0.0.102
             dns-search home.blrobinson.uk
             dns-domain home.blrobinson.uk
-            bond-mode active-backup
-            bond-miimon 100
-            bond-slaves none
-            bond-primary eth0
-        iface bond0 inet6 static
+            wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+        iface wlan0 inet6 static
             address 2a06:61c2:27ae::1:0005
             netmask 64
-            gateway ip6_addr: 2a06:61c2:27ae::
+            gateway 2a06:61c2:27ae::
             autoconf 0
             dns-nameservers 2620:fe::fe 2606:4700:4700::64
-            bond-mode active-backup
-            bond-miimon 100
-            bond-slaves none
-            bond-primary eth0
-        auto eth0
-        iface eth0 inet manual
-            bond-master bond0
-            bond-primary eth0
-            bond-mode active-backup
-        auto wlan0
-        iface wlan0 inet manual
-            bond-master bond0
-            bond-primary eth0
-            bond-mode active-backup
-            wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
