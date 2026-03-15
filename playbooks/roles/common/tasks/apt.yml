@@ -23,7 +23,7 @@
       - postfix
       - ifenslave
       - gpg
-      - ntp
+      # - ntp
     state: latest
     update_cache: True
     cache_valid_time: 300

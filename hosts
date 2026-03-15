@@ -1,5 +1,10 @@
 all:
   hosts:
+    hv-rack:
+      main_interface: enp2s0
+      ip_addr: 10.0.0.7
+      override_dns: 8.8.8.8
+      ip6_addr: 2a06:61c2:27ae::1:000B
     hv:
       main_interface: enp4s0
       ip_addr: 10.0.0.4
