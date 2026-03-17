@@ -36,3 +36,5 @@
 /data/foundry-container-cache 10.0.0.0/23(rw,no_root_squash,subtree_check)
 
 /data/home-assistant 10.0.0.0/23(rw,no_root_squash,subtree_check)
+
+/data/vaultwarden 10.0.0.0/23(rw,no_root_squash,subtree_check)
