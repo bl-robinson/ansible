@@ -38,3 +38,11 @@
 /data/home-assistant 10.0.0.0/23(rw,no_root_squash,subtree_check)
 
 /data/vaultwarden 10.0.0.0/23(rw,no_root_squash,subtree_check)
+
+/data/open-webui 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/data/mosquitto 10.0.0.0/23(rw,no_root_squash,subtree_check)
+
+/data/audiobookshelf/config 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/data/audiobookshelf/metadata 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/data/audiobookshelf/audiobooks 10.0.0.0/23(rw,no_root_squash,subtree_check)
+/data/audiobookshelf/podcasts 10.0.0.0/23(rw,no_root_squash,subtree_check)
