@@ -1,3 +1,6 @@
 ---
 - name: reload alloy
   service: name=alloy state=reloaded
+
+- name: restart smartd
+  service: name=smartd state=restarted
