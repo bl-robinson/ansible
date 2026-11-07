@@ -26,6 +26,8 @@ all:
     backup:
       main_interface: eth0
       ip_addr: 10.0.0.6
+      # Now at a remote house; reachable from home/k8s only via WireGuard.
+      metrics_listen_address: 10.0.2.4
       ip6_addr: 2a06:61c2:27ae::1:0001
     shed-cam:
       main_interface: eth0

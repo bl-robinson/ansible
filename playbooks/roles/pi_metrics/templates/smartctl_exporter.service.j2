@@ -1,0 +1,21 @@
+# Managed by ansible (roles/pi_metrics)
+[Unit]
+Description=Prometheus smartctl_exporter (scraped by the k8s Prometheus)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+# smartctl needs raw disk access, so this runs as root.
+ExecStart=/usr/local/bin/smartctl_exporter \
+  --web.listen-address={{ metrics_listen_address }}:{{ smartctl_exporter_port }} \
+  --smartctl.path=/usr/local/sbin/smartctl-exporter-smartctl \
+  --smartctl.interval={{ smartctl_exporter_interval }}
+# The listen address may be a VPN address that comes up after boot; keep retrying.
+Restart=always
+RestartSec=10
+NoNewPrivileges=yes
+ProtectHome=yes
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

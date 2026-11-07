@@ -1,0 +1,12 @@
+---
+# Address the exporters listen on: the one Prometheus scrapes. Set per host in
+# the inventory (backup listens on its WireGuard address, not its remote LAN).
+metrics_listen_address: "{{ ip_addr }}"
+
+node_exporter_version: 1.12.1
+node_exporter_port: 9100
+node_exporter_textfile_dir: /var/lib/node_exporter/textfile
+
+smartctl_exporter_version: 0.15.0
+smartctl_exporter_port: 9633
+smartctl_exporter_interval: 120s

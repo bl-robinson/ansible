@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""Write ZFS snapshot/scrub/capacity and SMART metrics for Alloy's textfile collector.
+"""Write ZFS snapshot/scrub/capacity metrics for node_exporter's textfile collector.
 
-Run as root from cron (smartctl needs root). Usage:
+SMART is handled by smartctl_exporter. Run from cron. Usage:
     zfs-backup-metrics [OUTPUT_FILE]
 With OUTPUT_FILE "-" the metrics are printed to stdout instead.
 """
-import json
 import os
-import shutil
 import re
 import subprocess
 import sys
@@ -15,7 +13,7 @@ import tempfile
 import time
 from datetime import datetime
 
-OUT = sys.argv[1] if len(sys.argv) > 1 else "/var/lib/alloy/textfile/zfs_backup.prom"
+OUT = sys.argv[1] if len(sys.argv) > 1 else "/var/lib/node_exporter/textfile/zfs_backup.prom"
 
 lines = []
 
@@ -113,47 +111,7 @@ def pools():
     metric("zfs_pool_data_errors", "Number of known permanent data errors in the pool.", "gauge", data_err)
 
 
-def smart():
-    disks = [l.split()[0] for l in run("lsblk", "-dn", "-o", "NAME,TYPE").stdout.splitlines()
-             if l.split()[1:] == ["disk"] and not l.startswith(("mmcblk", "zram", "loop"))]
-    # cron's PATH lacks /usr/sbin, where smartctl lives.
-    smartctl = shutil.which("smartctl") or "/usr/sbin/smartctl"
-    healthy, temp, hours, used, attrs, values, thresholds, st_errors, st_count = [], [], [], [], [], [], [], [], []
-    for disk in disks:
-        res = run(smartctl, "-j", "-i", "-H", "-A", "-l", "devstat", "-l", "selftest", f"/dev/{disk}", check=False)
-        data = json.loads(res.stdout)
-        labels = {"device": disk, "model": data.get("model_name", "unknown")}
-        if "smart_status" in data:
-            healthy.append((labels, 1 if data["smart_status"].get("passed") else 0))
-        if "temperature" in data:
-            temp.append((labels, data["temperature"].get("current", 0)))
-        if "power_on_time" in data:
-            hours.append((labels, data["power_on_time"].get("hours", 0)))
-        for page in data.get("ata_device_statistics", {}).get("pages", []):
-            for entry in page.get("table", []):
-                if entry.get("name", "").startswith("Percentage Used Endurance") and "value" in entry:
-                    used.append((labels, entry["value"]))
-        for a in data.get("ata_smart_attributes", {}).get("table", []):
-            alabels = {**labels, "id": a["id"], "name": a["name"]}
-            attrs.append((alabels, a["raw"]["value"]))
-            values.append((alabels, a["value"]))
-            thresholds.append((alabels, a["thresh"]))
-        selftest = data.get("ata_smart_self_test_log", {}).get("standard", {})
-        if "ata_smart_self_test_log" in data:
-            st_count.append((labels, selftest.get("count", 0)))
-            st_errors.append((labels, selftest.get("error_count_total", 0)))
-    metric("smart_device_healthy", "1 if the drive's SMART overall health self-assessment passed.", "gauge", healthy)
-    metric("smart_device_temperature_celsius", "Current drive temperature.", "gauge", temp)
-    metric("smart_device_power_on_hours", "Drive power-on hours.", "gauge", hours)
-    metric("smart_device_percentage_used", "Drive endurance used (ATA device statistics), 0-100+.", "gauge", used)
-    metric("smart_selftest_count", "Number of entries in the SMART self-test log.", "gauge", st_count)
-    metric("smart_selftest_errors", "Self-tests in the log that did not complete without error.", "gauge", st_errors)
-    metric("smart_attribute_raw", "Raw value of each ATA SMART attribute.", "gauge", attrs)
-    metric("smart_attribute_value", "Normalized (manufacturer-scaled) value of each ATA SMART attribute.", "gauge", values)
-    metric("smart_attribute_threshold", "Manufacturer failure threshold for the normalized value (0 = none).", "gauge", thresholds)
-
-
-for name, fn in (("snapshots", snapshots), ("pools", pools), ("smart", smart)):
+for name, fn in (("snapshots", snapshots), ("pools", pools)):
     try:
         fn()
         section_ok[name] = 1

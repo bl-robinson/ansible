@@ -1,0 +1,11 @@
+---
+# node_exporter + smartctl_exporter on the Pis, scraped (pulled) by the k8s
+# Prometheus via the ScrapeConfig in home-flux (monitoring/pi-scrape-config.yaml).
+- name: Pi metrics exporters (ZFS backup monitoring)
+  hosts: data:backup
+  remote_user: benr
+  become: true
+  become_method: sudo
+
+  roles:
+    - pi_metrics

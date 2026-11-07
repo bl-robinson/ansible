@@ -1,0 +1,11 @@
+#!/bin/sh
+# Managed by ansible (roles/pi_metrics). smartctl wrapper for smartctl_exporter.
+#
+# smartctl_exporter only asks smartctl for --info/--health/--attributes, so for
+# SATA SSDs it never sees device statistics (SSD wear) or the self-test log, and
+# its smartctl_device_statistics / smartctl_device_self_test_log_* metrics stay
+# empty. Add those logs to the per-device calls; leave --scan untouched.
+case " $* " in
+  *" --info "*) exec /usr/sbin/smartctl "$@" --log=devstat --log=selftest ;;
+  *) exec /usr/sbin/smartctl "$@" ;;
+esac

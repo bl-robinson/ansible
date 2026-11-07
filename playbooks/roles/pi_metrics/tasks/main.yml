@@ -1,0 +1,169 @@
+---
+# InfluxData rotated their signing key, so this leftover repo (telegraf is not
+# installed) makes every `apt update` fail. Nothing uses it.
+- name: Remove unused InfluxData apt repo
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/apt/sources.list.d/influxdata.list
+    - /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg
+
+# --- Remove Alloy (replaced by Prometheus pulling from the exporters below) ---
+- name: Stop and remove alloy
+  apt:
+    name: alloy
+    state: absent
+    purge: true
+
+- name: Remove Alloy leftovers and Grafana apt repo
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/alloy
+    - /etc/default/alloy
+    - /var/lib/alloy
+    - /etc/apt/sources.list.d/grafana.list
+    - /etc/apt/keyrings/grafana.asc
+
+- name: Remove alloy system user
+  user:
+    name: alloy
+    state: absent
+
+- name: Install smartmontools
+  apt:
+    name: smartmontools
+    state: latest
+    update_cache: True
+    cache_valid_time: 300
+
+# Short self-test daily at 02:00, long self-test Saturdays at 03:00. Results are
+# exported by smartctl_exporter (smartctl_device_self_test_log_*).
+- name: Schedule SMART self-tests
+  copy:
+    dest: /etc/smartd.conf
+    mode: "0644"
+    content: |
+      # Managed by ansible (roles/pi_metrics)
+      DEVICESCAN -d removable -n standby -s (S/../.././02|L/../../6/03) -m root -M exec /usr/share/smartmontools/smartd-runner
+  notify: restart smartd
+
+# --- node_exporter (official release; bookworm's package is 1.5.0) ---
+- name: Create node_exporter user
+  user:
+    name: node_exporter
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: Download node_exporter
+  get_url:
+    url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-arm64.tar.gz"
+    dest: "/opt/node_exporter-{{ node_exporter_version }}.linux-arm64.tar.gz"
+    checksum: "sha256:https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/sha256sums.txt"
+    mode: "0644"
+
+- name: Unpack node_exporter
+  unarchive:
+    src: "/opt/node_exporter-{{ node_exporter_version }}.linux-arm64.tar.gz"
+    dest: /opt
+    remote_src: true
+    creates: "/opt/node_exporter-{{ node_exporter_version }}.linux-arm64/node_exporter"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Install node_exporter binary
+  copy:
+    src: "/opt/node_exporter-{{ node_exporter_version }}.linux-arm64/node_exporter"
+    dest: /usr/local/bin/node_exporter
+    remote_src: true
+    mode: "0755"
+  notify: restart node_exporter
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Create textfile collector directory
+  file:
+    path: "{{ node_exporter_textfile_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install node_exporter service
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    mode: "0644"
+  notify: restart node_exporter
+
+- name: Start node_exporter
+  systemd:
+    name: node_exporter
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+
+# --- ZFS snapshot/scrub metrics via the textfile collector ---
+- name: Install ZFS metrics collector
+  copy:
+    src: zfs-backup-metrics
+    dest: /usr/local/bin/zfs-backup-metrics
+    mode: "0755"
+
+- name: Run ZFS metrics collector every 5 minutes
+  copy:
+    dest: /etc/cron.d/zfs-backup-metrics
+    mode: "0644"
+    content: |
+      # Managed by ansible (roles/pi_metrics)
+      PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      */5 * * * * root /usr/local/bin/zfs-backup-metrics {{ node_exporter_textfile_dir }}/zfs_backup.prom
+
+# --- smartctl_exporter (official release; not packaged in bookworm) ---
+- name: Download smartctl_exporter
+  get_url:
+    url: "https://github.com/prometheus-community/smartctl_exporter/releases/download/v{{ smartctl_exporter_version }}/smartctl_exporter-{{ smartctl_exporter_version }}.linux-arm64.tar.gz"
+    dest: "/opt/smartctl_exporter-{{ smartctl_exporter_version }}.linux-arm64.tar.gz"
+    checksum: "sha256:https://github.com/prometheus-community/smartctl_exporter/releases/download/v{{ smartctl_exporter_version }}/sha256sums.txt"
+    mode: "0644"
+
+- name: Unpack smartctl_exporter
+  unarchive:
+    src: "/opt/smartctl_exporter-{{ smartctl_exporter_version }}.linux-arm64.tar.gz"
+    dest: /opt
+    remote_src: true
+    creates: "/opt/smartctl_exporter-{{ smartctl_exporter_version }}.linux-arm64/smartctl_exporter"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Install smartctl_exporter binary
+  copy:
+    src: "/opt/smartctl_exporter-{{ smartctl_exporter_version }}.linux-arm64/smartctl_exporter"
+    dest: /usr/local/bin/smartctl_exporter
+    remote_src: true
+    mode: "0755"
+  notify: restart smartctl_exporter
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Install smartctl wrapper for smartctl_exporter
+  copy:
+    src: smartctl-exporter-smartctl
+    dest: /usr/local/sbin/smartctl-exporter-smartctl
+    mode: "0755"
+  notify: restart smartctl_exporter
+
+- name: Install smartctl_exporter service
+  template:
+    src: smartctl_exporter.service.j2
+    dest: /etc/systemd/system/smartctl_exporter.service
+    mode: "0644"
+  notify: restart smartctl_exporter
+
+- name: Start smartctl_exporter
+  systemd:
+    name: smartctl_exporter
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  ignore_errors: "{{ ansible_check_mode }}"

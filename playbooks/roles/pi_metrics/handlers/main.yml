@@ -1,0 +1,9 @@
+---
+- name: restart smartd
+  service: name=smartd state=restarted
+
+- name: restart node_exporter
+  systemd: name=node_exporter state=restarted daemon_reload=yes
+
+- name: restart smartctl_exporter
+  systemd: name=smartctl_exporter state=restarted daemon_reload=yes
