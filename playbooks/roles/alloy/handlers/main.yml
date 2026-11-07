@@ -1,0 +1,3 @@
+---
+- name: reload alloy
+  service: name=alloy state=reloaded

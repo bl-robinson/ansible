@@ -1,0 +1,158 @@
+#!/usr/bin/env python3
+"""Write ZFS snapshot/scrub/capacity and SMART metrics for Alloy's textfile collector.
+
+Run as root from cron (smartctl needs root). Usage:
+    zfs-backup-metrics [OUTPUT_FILE]
+With OUTPUT_FILE "-" the metrics are printed to stdout instead.
+"""
+import json
+import os
+import re
+import subprocess
+import sys
+import tempfile
+import time
+from datetime import datetime
+
+OUT = sys.argv[1] if len(sys.argv) > 1 else "/var/lib/alloy/textfile/zfs_backup.prom"
+
+lines = []
+
+
+def esc(value):
+    return str(value).replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
+
+
+def metric(name, help_text, mtype, samples):
+    lines.append(f"# HELP {name} {help_text}")
+    lines.append(f"# TYPE {name} {mtype}")
+    for labels, value in samples:
+        if labels:
+            lab = ",".join(f'{k}="{esc(v)}"' for k, v in labels.items())
+            lines.append(f"{name}{{{lab}}} {value}")
+        else:
+            lines.append(f"{name} {value}")
+
+
+def run(*cmd, check=True):
+    return subprocess.run(cmd, capture_output=True, text=True, check=check)
+
+
+section_ok = {}
+
+
+def snapshots():
+    newest, count = {}, {}
+    for ds in run("zfs", "list", "-Hp", "-t", "filesystem,volume", "-o", "name").stdout.split():
+        count[ds] = 0
+    out = run("zfs", "list", "-Hp", "-t", "snapshot", "-o", "name,creation").stdout
+    for line in out.splitlines():
+        name, created = line.split("\t")
+        ds = name.split("@", 1)[0]
+        newest[ds] = max(newest.get(ds, 0), int(created))
+        count[ds] = count.get(ds, 0) + 1
+    metric("zfs_backup_newest_snapshot_timestamp_seconds",
+           "Creation time of the newest snapshot of the dataset.", "gauge",
+           [({"dataset": ds}, ts) for ds, ts in sorted(newest.items())])
+    metric("zfs_backup_snapshot_count", "Number of snapshots of the dataset.", "gauge",
+           [({"dataset": ds}, n) for ds, n in sorted(count.items())])
+
+
+SCRUB_DONE = re.compile(r"scrub repaired \S+ in \S+ with (\d+) errors on (.+)$")
+DATA_ERRORS = re.compile(r"errors: (\d+) data errors")
+
+
+def pools():
+    cap, scrub_end, scrub_err, scrub_running, dev_err, data_err = [], [], [], [], [], []
+    for line in run("zpool", "list", "-Hp", "-o", "name,size,alloc").stdout.splitlines():
+        pool, size, alloc = line.split("\t")
+        p = {"pool": pool}
+        cap.append((p, round(int(alloc) / int(size), 4)))
+
+        status = run("zpool", "status", "-p", pool).stdout
+        running = 0
+        for sline in status.splitlines():
+            sline = sline.strip()
+            if sline.startswith("scan:"):
+                m = SCRUB_DONE.search(sline)
+                if m:
+                    when = datetime.strptime(" ".join(m.group(2).split()), "%a %b %d %H:%M:%S %Y")
+                    scrub_end.append((p, int(time.mktime(when.timetuple()))))
+                    scrub_err.append((p, int(m.group(1))))
+                if "scrub in progress" in sline:
+                    running = 1
+        scrub_running.append((p, running))
+
+        # Sum READ/WRITE/CKSUM over every row of the config table.
+        totals = {"read": 0, "write": 0, "cksum": 0}
+        in_config = False
+        for sline in status.splitlines():
+            cols = sline.split()
+            if cols[:1] == ["NAME"]:
+                in_config = True
+                continue
+            if in_config:
+                if not cols or sline.startswith("errors:"):
+                    in_config = False
+                    continue
+                if len(cols) >= 5 and all(c.isdigit() for c in cols[2:5]):
+                    totals["read"] += int(cols[2])
+                    totals["write"] += int(cols[3])
+                    totals["cksum"] += int(cols[4])
+        dev_err += [({"pool": pool, "type": t}, n) for t, n in totals.items()]
+
+        m = DATA_ERRORS.search(status)
+        data_err.append((p, int(m.group(1)) if m else 0))
+
+    metric("zfs_pool_capacity_ratio", "Allocated / size of the pool.", "gauge", cap)
+    metric("zfs_pool_scrub_last_end_timestamp_seconds", "When the last completed scrub finished.", "gauge", scrub_end)
+    metric("zfs_pool_scrub_errors", "Errors found by the last completed scrub.", "gauge", scrub_err)
+    metric("zfs_pool_scrub_in_progress", "1 while a scrub is running.", "gauge", scrub_running)
+    metric("zfs_pool_device_errors", "READ/WRITE/CKSUM error counters summed over the pool's devices.", "gauge", dev_err)
+    metric("zfs_pool_data_errors", "Number of known permanent data errors in the pool.", "gauge", data_err)
+
+
+def smart():
+    disks = [l.split()[0] for l in run("lsblk", "-dn", "-o", "NAME,TYPE").stdout.splitlines()
+             if l.split()[1:] == ["disk"] and not l.startswith(("mmcblk", "zram", "loop"))]
+    healthy, temp, hours, attrs = [], [], [], []
+    for disk in disks:
+        res = run("smartctl", "-j", "-i", "-H", "-A", f"/dev/{disk}", check=False)
+        data = json.loads(res.stdout)
+        labels = {"device": disk, "model": data.get("model_name", "unknown")}
+        if "smart_status" in data:
+            healthy.append((labels, 1 if data["smart_status"].get("passed") else 0))
+        if "temperature" in data:
+            temp.append((labels, data["temperature"].get("current", 0)))
+        if "power_on_time" in data:
+            hours.append((labels, data["power_on_time"].get("hours", 0)))
+        for a in data.get("ata_smart_attributes", {}).get("table", []):
+            attrs.append(({**labels, "id": a["id"], "name": a["name"]}, a["raw"]["value"]))
+    metric("smart_device_healthy", "1 if the drive's SMART overall health self-assessment passed.", "gauge", healthy)
+    metric("smart_device_temperature_celsius", "Current drive temperature.", "gauge", temp)
+    metric("smart_device_power_on_hours", "Drive power-on hours.", "gauge", hours)
+    metric("smart_attribute_raw", "Raw value of each ATA SMART attribute.", "gauge", attrs)
+
+
+for name, fn in (("snapshots", snapshots), ("pools", pools), ("smart", smart)):
+    try:
+        fn()
+        section_ok[name] = 1
+    except Exception as exc:  # keep going so one failure doesn't hide the rest
+        print(f"zfs-backup-metrics: {name} failed: {exc}", file=sys.stderr)
+        section_ok[name] = 0
+
+metric("zfs_backup_metrics_section_ok", "1 if this section of the collector ran without error.", "gauge",
+       [({"section": s}, v) for s, v in section_ok.items()])
+metric("zfs_backup_metrics_last_run_timestamp_seconds", "When this collector last ran.", "gauge",
+       [({}, int(time.time()))])
+
+text = "\n".join(lines) + "\n"
+if OUT == "-":
+    sys.stdout.write(text)
+else:
+    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(OUT), prefix=".zfs_backup.")
+    with os.fdopen(fd, "w") as f:
+        f.write(text)
+    os.chmod(tmp, 0o644)
+    os.replace(tmp, OUT)

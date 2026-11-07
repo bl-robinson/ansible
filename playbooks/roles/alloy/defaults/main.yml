@@ -1,0 +1,5 @@
+---
+alloy_remote_write_url: http://prometheus.k8s.home.blrobinson.uk/api/v1/write
+alloy_job: pi-nodes
+alloy_scrape_interval: 60s
+alloy_textfile_dir: /var/lib/alloy/textfile
