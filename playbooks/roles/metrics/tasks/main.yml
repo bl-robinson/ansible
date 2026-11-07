@@ -1,3 +1,0 @@
----
-- name: install influxdb
-  import_tasks: influxdb.yml

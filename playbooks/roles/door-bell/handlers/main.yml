@@ -1,8 +1,0 @@
----
-- name: daemon_reload
-  systemd:
-    daemon_reload: true
-- name: restart_doorbell_button
-  service: name=doorbell-button state=restarted enabled=yes
-- name: restart_doorbell_cam
-  service: name=doorbell-cam state=restarted enabled=yes

@@ -1,3 +1,0 @@
----
-- name: wireguard install 
-  import_tasks: wireguard.yml
