@@ -108,10 +108,19 @@
     src: compose.yml.j2
     dest: "{{ home_assistant_compose_dir }}/compose.yml"
     mode: "0644"
+  notify: reload homeassistant
 
-- name: Start / update Home Assistant
-  community.docker.docker_compose_v2:
-    project_src: "{{ home_assistant_compose_dir }}"
-    state: present
-    pull: missing
+- name: Install Home Assistant systemd unit
+  template:
+    src: homeassistant.service.j2
+    dest: /etc/systemd/system/homeassistant.service
+    mode: "0644"
+  notify: reload homeassistant
+
+- name: Start and enable Home Assistant
+  systemd:
+    name: homeassistant
+    state: started
+    enabled: yes
+    daemon_reload: yes
   ignore_errors: "{{ ansible_check_mode }}"

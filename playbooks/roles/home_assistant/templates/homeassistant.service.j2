@@ -1,0 +1,25 @@
+# Managed by ansible (roles/home_assistant)
+# Home Assistant via Docker Compose ({{ home_assistant_compose_dir }}/compose.yml).
+#   systemctl start|stop|restart homeassistant
+#   systemctl reload homeassistant   # apply compose changes (e.g. new version)
+# Crash recovery between these is Docker's `restart: unless-stopped`.
+[Unit]
+Description=Home Assistant (Docker Compose)
+Requires=docker.service
+Wants=zfs-mount.service
+After=docker.service zfs-mount.service network-online.target
+# Never start on the bare mountpoint (SD card) if the ZFS dataset isn't mounted.
+ConditionPathIsMountPoint={{ home_assistant_config_dir }}
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory={{ home_assistant_compose_dir }}
+ExecStart=/usr/bin/docker compose up --detach --remove-orphans
+ExecReload=/usr/bin/docker compose up --detach --remove-orphans
+ExecStop=/usr/bin/docker compose down
+# First start may pull the ~1.5 GB image.
+TimeoutStartSec=15min
+
+[Install]
+WantedBy=multi-user.target

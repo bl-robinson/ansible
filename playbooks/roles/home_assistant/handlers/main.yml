@@ -1,3 +1,8 @@
 ---
 - name: restart docker
   systemd: name=docker state=restarted daemon_reload=yes
+
+# Applies compose/unit changes (e.g. a version bump); recreates the container
+# only if its definition changed. No-op effect if HA was just started.
+- name: reload homeassistant
+  systemd: name=homeassistant state=reloaded daemon_reload=yes
