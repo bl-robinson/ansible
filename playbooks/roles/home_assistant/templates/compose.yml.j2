@@ -1,0 +1,20 @@
+# Managed by ansible (roles/home_assistant). Based on the upstream example:
+# https://www.home-assistant.io/installation/linux#docker-compose
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:{{ home_assistant_version }}
+    volumes:
+      - {{ home_assistant_config_dir }}:/config
+      - /etc/localtime:/etc/localtime:ro
+      # Onboard Bluetooth via the host's BlueZ.
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+    # Host networking for device discovery (mDNS, SSDP, HomeKit, etc.).
+    network_mode: host
+    environment:
+      TZ: {{ home_assistant_timezone }}
+    # Add USB radios (Zigbee/Z-Wave) here, by stable path, e.g.:
+    # devices:
+    #   - /dev/serial/by-id/usb-...:/dev/ttyUSB0

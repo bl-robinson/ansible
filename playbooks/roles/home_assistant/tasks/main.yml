@@ -1,0 +1,117 @@
+---
+# --- Config storage: plain ZFS dataset on the SSD pool (not the zrep replica) ---
+- name: Check whether the HA dataset is already mounted
+  command: mountpoint -q {{ home_assistant_config_dir }}
+  register: ha_mounted
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+# Make the empty directory *under* the mountpoint immutable, so if the pool
+# ever fails to import, HA cannot silently create a fresh config on the SD card
+# (it crash-loops instead, which is visible). ZFS mounts over it as normal.
+- name: Create mountpoint directory
+  file:
+    path: "{{ home_assistant_config_dir }}"
+    state: directory
+    mode: "0755"
+  when: ha_mounted.rc != 0
+
+- name: Make the unmounted mountpoint immutable
+  command: chattr +i {{ home_assistant_config_dir }}
+  when: ha_mounted.rc != 0
+
+- name: Create Home Assistant ZFS dataset
+  community.general.zfs:
+    name: "{{ home_assistant_dataset }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ home_assistant_config_dir }}"
+      atime: "off"
+
+# --- Docker from Docker's official repo (what HA's docs assume) ---
+- name: Add Docker apt key
+  get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+
+- name: Add Docker apt repo
+  apt_repository:
+    repo: "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    filename: docker
+    state: present
+
+- name: Install Docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+    update_cache: True
+    cache_valid_time: 300
+  ignore_errors: "{{ ansible_check_mode }}"
+
+# Docker's default json-file logs grow without limit on the SD card.
+- name: Limit Docker container log size
+  copy:
+    dest: /etc/docker/daemon.json
+    mode: "0644"
+    content: |
+      {
+        "log-driver": "json-file",
+        "log-opts": { "max-size": "10m", "max-file": "3" }
+      }
+  notify: restart docker
+
+# ZFS datasets are mounted by zfs-mount.service here (no per-dataset .mount
+# units), so order Docker after it. The immutable mountpoint above covers the
+# case where the pool fails to import entirely.
+- name: Create Docker systemd drop-in directory
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+    mode: "0755"
+
+- name: Make Docker start after ZFS datasets are mounted
+  copy:
+    dest: /etc/systemd/system/docker.service.d/after-zfs-mount.conf
+    mode: "0644"
+    content: |
+      # Managed by ansible (roles/home_assistant)
+      [Unit]
+      Wants=zfs-mount.service
+      After=zfs-mount.service
+  notify: restart docker
+
+- name: Flush handlers (apply Docker config before starting HA)
+  meta: flush_handlers
+
+- name: Start Docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+
+# --- Home Assistant ---
+- name: Create compose directory
+  file:
+    path: "{{ home_assistant_compose_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Install Home Assistant compose file
+  template:
+    src: compose.yml.j2
+    dest: "{{ home_assistant_compose_dir }}/compose.yml"
+    mode: "0644"
+
+- name: Start / update Home Assistant
+  community.docker.docker_compose_v2:
+    project_src: "{{ home_assistant_compose_dir }}"
+    state: present
+    pull: missing
+  ignore_errors: "{{ ansible_check_mode }}"

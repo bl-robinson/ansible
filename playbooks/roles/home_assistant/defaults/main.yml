@@ -1,0 +1,14 @@
+---
+# Pinned; to update, change this and re-run the playbook. Wait for the .1/.2
+# patch releases of a new monthly version before moving to it.
+home_assistant_version: "2026.10.4"
+home_assistant_timezone: Europe/London
+
+# HA config (incl. its constantly-written database) lives on a ZFS dataset on
+# the SSDs rather than the SD card. No snapshots/replication: HA's built-in
+# backups will be set up separately.
+home_assistant_dataset: data/homeassistant
+home_assistant_config_dir: /opt/homeassistant
+
+# Compose project lives outside the config dir so HA can't touch it.
+home_assistant_compose_dir: /etc/home-assistant

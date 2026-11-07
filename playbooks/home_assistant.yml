@@ -1,0 +1,11 @@
+---
+# Home Assistant Container for the friend's house, on the `backup` Pi.
+# Friend: http://192.168.0.200:8123   Ben (via VPN): http://10.0.2.4:8123
+- name: Home Assistant
+  hosts: backup
+  remote_user: benr
+  become: true
+  become_method: sudo
+
+  roles:
+    - home_assistant
