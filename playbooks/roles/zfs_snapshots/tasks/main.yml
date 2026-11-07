@@ -1,0 +1,38 @@
+---
+- name: Refuse to autosnap a zrep receive target
+  assert:
+    that:
+      - sanoid_templates[item.template].autosnap == "no"
+    fail_msg: >-
+      {{ item.name }} on {{ inventory_hostname }} is a zrep receive target and must
+      not take snapshots: a local snapshot breaks the next incremental receive.
+  loop: "{{ sanoid_datasets }}"
+  when: item.template == "replica"
+
+- name: Install sanoid
+  apt:
+    name: sanoid
+    state: latest
+    update_cache: True
+    cache_valid_time: 300
+
+- name: Create sanoid config directory
+  file:
+    path: /etc/sanoid
+    state: directory
+    mode: "0755"
+
+- name: Install sanoid config
+  template:
+    src: sanoid.conf.j2
+    dest: /etc/sanoid/sanoid.conf
+    mode: "0644"
+
+# The timer runs sanoid.service (take snapshots, if autosnap) then
+# sanoid-prune.service every 15 minutes.
+- name: Enable sanoid timer
+  systemd:
+    name: sanoid.timer
+    state: started
+    enabled: yes
+  ignore_errors: "{{ ansible_check_mode }}"

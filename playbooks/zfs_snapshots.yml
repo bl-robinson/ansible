@@ -1,0 +1,11 @@
+---
+# Dated ZFS snapshots with sanoid. data takes them; zrep (every 30 min, zfs send -I)
+# replicates them to backup, where sanoid only prunes, with longer retention.
+- name: ZFS snapshot retention (sanoid)
+  hosts: data:backup
+  remote_user: benr
+  become: true
+  become_method: sudo
+
+  roles:
+    - zfs_snapshots

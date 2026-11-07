@@ -1,0 +1,14 @@
+# Managed by ansible (roles/zfs_snapshots). Snapshot names are in UTC.
+{% for ds in sanoid_datasets %}
+
+[{{ ds.name }}]
+	use_template = {{ ds.template }}
+	recursive = no
+{% endfor %}
+{% for name in sanoid_datasets | map(attribute='template') | unique %}
+
+[template_{{ name }}]
+{% for key, value in sanoid_templates[name].items() %}
+	{{ key }} = {{ value }}
+{% endfor %}
+{% endfor %}

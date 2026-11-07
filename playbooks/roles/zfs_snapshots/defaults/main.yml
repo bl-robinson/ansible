@@ -1,0 +1,35 @@
+---
+# Datasets sanoid manages on this host, and which retention template to use.
+# Set per host in the inventory, e.g.
+#   sanoid_datasets:
+#     - name: data/data
+#       template: source     # takes snapshots (data)
+#     - name: data/data
+#       template: replica    # prune only, NEVER snapshots (backup: zrep target)
+sanoid_datasets: []
+
+# Retention per template (counts of snapshots kept per period).
+sanoid_templates:
+  # Primary copy: takes the snapshots; short local history for quick undo.
+  # zrep (zfs send -I) carries every snapshot across to backup.
+  source:
+    autosnap: "yes"
+    autoprune: "yes"
+    frequently: 0
+    hourly: 24
+    daily: 14
+    weekly: 4
+    monthly: 3
+    yearly: 0
+  # zrep receive target: must NOT take snapshots (a local snapshot newer than
+  # the last zrep one makes the next incremental receive fail). Prune only,
+  # with longer history than the source.
+  replica:
+    autosnap: "no"
+    autoprune: "yes"
+    frequently: 0
+    hourly: 48
+    daily: 30
+    weekly: 8
+    monthly: 12
+    yearly: 0

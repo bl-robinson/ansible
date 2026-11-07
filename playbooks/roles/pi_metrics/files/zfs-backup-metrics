@@ -40,21 +40,41 @@ def run(*cmd, check=True):
 section_ok = {}
 
 
+SANOID_SNAP = re.compile(r"^autosnap_.*_(frequently|hourly|daily|weekly|monthly|yearly)$")
+
+
+def snapshot_kind(snap):
+    """zrep_NNNNNN -> zrep, sanoid autosnap_<date>_<period> -> <period>, else other."""
+    if re.match(r"^zrep_[0-9a-f]{6}$", snap):
+        return "zrep"
+    m = SANOID_SNAP.match(snap)
+    return m.group(1) if m else "other"
+
+
 def snapshots():
     newest, count = {}, {}
+    newest_kind, count_kind = {}, {}
     for ds in run("zfs", "list", "-Hp", "-t", "filesystem,volume", "-o", "name").stdout.split():
         count[ds] = 0
     out = run("zfs", "list", "-Hp", "-t", "snapshot", "-o", "name,creation").stdout
     for line in out.splitlines():
         name, created = line.split("\t")
-        ds = name.split("@", 1)[0]
+        ds, snap = name.split("@", 1)
         newest[ds] = max(newest.get(ds, 0), int(created))
         count[ds] = count.get(ds, 0) + 1
+        key = (ds, snapshot_kind(snap))
+        newest_kind[key] = max(newest_kind.get(key, 0), int(created))
+        count_kind[key] = count_kind.get(key, 0) + 1
     metric("zfs_backup_newest_snapshot_timestamp_seconds",
            "Creation time of the newest snapshot of the dataset.", "gauge",
            [({"dataset": ds}, ts) for ds, ts in sorted(newest.items())])
     metric("zfs_backup_snapshot_count", "Number of snapshots of the dataset.", "gauge",
            [({"dataset": ds}, n) for ds, n in sorted(count.items())])
+    metric("zfs_backup_newest_snapshot_by_kind_timestamp_seconds",
+           "Creation time of the newest snapshot of each kind (zrep, sanoid period, other).", "gauge",
+           [({"dataset": ds, "kind": k}, ts) for (ds, k), ts in sorted(newest_kind.items())])
+    metric("zfs_backup_snapshot_by_kind_count", "Number of snapshots of each kind.", "gauge",
+           [({"dataset": ds, "kind": k}, n) for (ds, k), n in sorted(count_kind.items())])
 
 
 SCRUB_DONE = re.compile(r"scrub repaired \S+ in \S+ with (\d+) errors on (.+)$")
