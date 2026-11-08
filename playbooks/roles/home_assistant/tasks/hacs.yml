@@ -1,0 +1,25 @@
+---
+# One-time install of HACS (https://hacs.xyz) from its official release zip.
+# Skipped whenever HACS is already present: after that HACS updates itself
+# from the HA UI, and ansible must not overwrite it. Linking HACS to GitHub
+# (Settings -> Devices & services -> Add integration -> HACS) is done in the UI.
+- name: Check whether HACS is installed
+  stat:
+    path: "{{ home_assistant_config_dir }}/custom_components/hacs/manifest.json"
+  register: hacs_manifest
+
+- name: Install HACS
+  when: not hacs_manifest.stat.exists
+  block:
+    - name: Create HACS directory
+      file:
+        path: "{{ home_assistant_config_dir }}/custom_components/hacs"
+        state: directory
+        mode: "0755"
+
+    - name: Download and unpack HACS
+      unarchive:
+        src: "https://github.com/hacs/integration/releases/download/{{ home_assistant_hacs_version }}/hacs.zip"
+        dest: "{{ home_assistant_config_dir }}/custom_components/hacs"
+        remote_src: true
+      notify: restart homeassistant

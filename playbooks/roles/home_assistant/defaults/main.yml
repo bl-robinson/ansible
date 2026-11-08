@@ -12,3 +12,7 @@ home_assistant_config_dir: /opt/homeassistant
 
 # Compose project lives outside the config dir so HA can't touch it.
 home_assistant_compose_dir: /etc/home-assistant
+
+# HACS: installed once if missing (tasks/hacs.yml), then it updates itself.
+home_assistant_hacs_enabled: true
+home_assistant_hacs_version: "2.0.5"

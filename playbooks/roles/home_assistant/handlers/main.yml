@@ -6,3 +6,6 @@
 # only if its definition changed. No-op effect if HA was just started.
 - name: reload homeassistant
   systemd: name=homeassistant state=reloaded daemon_reload=yes
+
+- name: restart homeassistant
+  systemd: name=homeassistant state=restarted

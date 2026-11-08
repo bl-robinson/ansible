@@ -124,3 +124,7 @@
     enabled: yes
     daemon_reload: yes
   ignore_errors: "{{ ansible_check_mode }}"
+
+- name: HACS
+  include_tasks: hacs.yml
+  when: home_assistant_hacs_enabled
